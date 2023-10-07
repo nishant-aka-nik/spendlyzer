@@ -10,7 +10,7 @@ import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 
 
 
-export default function MediaCard() {
+export default function AccountsCard() {
     return (
         <Card sx={{ maxWidth: 'xl' }}>
             <CardMedia

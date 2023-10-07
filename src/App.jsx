@@ -2,8 +2,8 @@ import React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import AppBar from '@mui/material/AppBar';
 import Typography from '@mui/material/Typography';
-import MediaCard from './cards/MediaCard';
-import AccountCard from './cards/AccountCard';
+import AccountsCard from './cards/AccountsCard';
+import CreditCard from './cards/CreditCard';
 
 import { Grid } from '@mui/material';
 
@@ -27,11 +27,12 @@ const App = () => {
                 sx={{ padding: 2 }} // Add padding using sx prop
             >
                 <Grid item xs={12} sm={6} md={4}>
-                    <AccountCard />
+                    <AccountsCard />
                 </Grid>
                 <Grid item xs={12} sm={6} md={4}>
-                    <MediaCard />
+                    <CreditCard />
                 </Grid>
+
             </Grid>
         </>
     );

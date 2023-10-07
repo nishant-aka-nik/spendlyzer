@@ -9,7 +9,7 @@ import CreditCardIcon from '@mui/icons-material/CreditCard';
 
 
 
-export default function AccountCard() {
+export default function CreditCard() {
     return (
         <Card sx={{ maxWidth: 'xl' }}>
             <CardMedia
