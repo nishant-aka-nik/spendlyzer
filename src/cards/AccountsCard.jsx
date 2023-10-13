@@ -9,7 +9,7 @@ import Divider from '@mui/material/Divider';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import { useCSVData } from './CSVDataContext';
 import Box from '@mui/material/Box';
-import LinearProgress from '@mui/material/LinearProgress';
+import LinearProgress from '@mui/joy/LinearProgress';
 
 
 
@@ -130,15 +130,17 @@ function getNextToNextMonthName() {
 
 function LinearProgressWithLabel(props) {
     const isLessThan20 = props.value < 20;
-    const barColor = isLessThan20 ? 'error' : 'success'
+    const barColor = isLessThan20 ? 'danger' : 'success'
   
     return (
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <Box sx={{ width: '100%', mr: 1 }}>
           <LinearProgress
-            variant="determinate"
-            value={props.value}
             color={barColor}
+            determinate
+            size="lg"
+            variant="outlined"
+            value ={props.value}
           />
         </Box>
         <Box sx={{ minWidth: 35 }}>
