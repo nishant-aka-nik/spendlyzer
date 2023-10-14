@@ -29,4 +29,18 @@ function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
+}
+
+export function getGreetingByTimezone() {
+    const now = new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" });
+
+    const hour = new Date(now).getHours();
+
+    if (hour >= 5 && hour < 12) {
+        return "Good morning! ☀️";
+    } else if (hour >= 12 && hour < 17) {
+        return "Good afternoon! 🌤️";
+    } else {
+        return "Good evening! 🌙";
+    }
+}

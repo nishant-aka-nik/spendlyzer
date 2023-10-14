@@ -4,18 +4,20 @@ import CardContent from "@mui/joy/CardContent";
 import Typography from "@mui/joy/Typography";
 import Divider from "@mui/material/Divider";
 import CardMedia from '@mui/material/CardMedia';
-import {bgRandomizer} from './../utils/utils'
-
+import {bgRandomizer, getGreetingByTimezone} from './../utils/utils'
+import { useCSVData } from './CSVDataContext';
 
 
 export default function UserCard() {
-
     const [bgImage, setbgImage] = useState('')
-
     useEffect(() => {
         setbgImage(bgRandomizer);
 
     }, []);
+
+    const csvData = useCSVData();
+    const greeting = getGreetingByTimezone();
+
 
 
     return (
@@ -25,12 +27,13 @@ export default function UserCard() {
                 src={bgImage}
                 height='70'
             />
-            <CardContent orientation="horizontal" sx={{ padding: 2 }}>
+            <CardContent orientation="vertical" sx={{ padding: 2 }}>
 
                 <Typography level='title-sm' >
-                    Hi,<Typography level='title-lg'> Saraswati Good Morning!</Typography>
+                    Hi<Typography level='h4'> {csvData.name}, </Typography>
 
                 </Typography>
+                <Typography level='title-md'>{greeting}</Typography>
 
 
             </CardContent>
