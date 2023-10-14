@@ -6,6 +6,7 @@ import Divider from '@mui/material/Divider';
 import { useCSVData } from './CSVDataContext';
 import Box from '@mui/material/Box';
 import LinearProgress from '@mui/joy/LinearProgress';
+import {getNextMonthName,getNextToNextMonthName} from './../utils/utils'
 
 
 
@@ -18,11 +19,6 @@ export default function AccountsCard() {
     const [balanceLinearProgress, setbalanceLinearProgress] = useState(0)
     const [nextMonethSavingLinearProgress, setnextMonethSavingLinearProgress] = useState(0)
     const [nextToNextMonthSavingLinearProgress, setnextToNextMonthSavingLinearProgress] = useState(0)
-
-
-
-
-
 
     useEffect(() => {
         setbalanceLinearProgress((csvData.thisMonth / 19000) * 100);
@@ -79,31 +75,12 @@ export default function AccountsCard() {
     );
 }
 
-function getNextMonthName() {
-    const today = new Date();
-    const nextMonth = new Date(today);
-    nextMonth.setMonth(nextMonth.getMonth() + 1);
-
-    // Get the name of the next month using toLocaleString
-    const nextMonthName = nextMonth.toLocaleString('default', { month: 'long' });
-
-    return nextMonthName;
-}
-
-function getNextToNextMonthName() {
-    const today = new Date();
-    const nextToNextMonth = new Date(today);
-    nextToNextMonth.setMonth(nextToNextMonth.getMonth() + 2);
-
-    // Get the name of the next to next month using toLocaleString
-    const nextToNextMonthName = nextToNextMonth.toLocaleString('default', { month: 'long' });
-
-    return nextToNextMonthName;
-}
-
 function LinearProgressWithLabel(props) {
     const isLessThan20 = props.value < 20;
     const barColor = isLessThan20 ? 'danger' : 'success'
+    const roundedValue = isNaN(props.value) ? 0 : Math.round(props.value);
+
+
   
     return (
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -113,12 +90,12 @@ function LinearProgressWithLabel(props) {
             determinate
             size="lg"
             variant="outlined"
-            value ={props.value}
+            value ={roundedValue}
           />
         </Box>
         <Box sx={{ minWidth: 35 }}>
           <Typography variant="body2" color="text.secondary">
-            {`${Math.round(props.value)}%`}
+            {`${roundedValue}%`}
           </Typography>
         </Box>
       </Box>
