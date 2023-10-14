@@ -19,22 +19,22 @@ export default function AccountsCard() {
     const [nextMonethSavingLinearProgress, setnextMonethSavingLinearProgress] = useState(0)
     const [nextToNextMonthSavingLinearProgress, setnextToNextMonthSavingLinearProgress] = useState(0)
 
-    const disposableThisMonth =  csvData.thisMonth - 19000*0.2
+    const disposableThisMonth =  csvData.thisMonth - csvData.totalSaving*0.2
 
     useEffect(() => {
-        setbalanceLinearProgress((csvData.thisMonth / 19000) * 100);
+        setbalanceLinearProgress((csvData.thisMonth / csvData.totalSaving) * 100);
 
-    }, [csvData.thisMonth]);
+    }, [csvData]);
 
-
-    useEffect(() => {
-        setnextMonethSavingLinearProgress((csvData.nextMonth / 19000) * 100);
-
-    }, [csvData.nextMonth]);
 
     useEffect(() => {
-        setnextToNextMonthSavingLinearProgress((csvData.nextNextMonth / 19000) * 100);
-    }, [csvData.nextNextMonth]);
+        setnextMonethSavingLinearProgress((csvData.nextMonth / csvData.totalSaving) * 100);
+
+    }, [csvData]);
+
+    useEffect(() => {
+        setnextToNextMonthSavingLinearProgress((csvData.nextNextMonth / csvData.totalSaving) * 100);
+    }, [csvData]);
 
     return (
         <Card >
@@ -47,7 +47,7 @@ export default function AccountsCard() {
             <CardContent orientation='horizontal' sx={{ padding: 1 }}>
                 <CardContent orientation='vertical' sx={{ paddingLeft: 1 }}>
                     <Typography level="body-md">Balance</Typography>
-                    <Typography level="title-lg">Rs. {csvData.thisMonth}</Typography>
+                    <Typography level="h3">Rs. {csvData.thisMonth}</Typography>
                     <LinearProgressWithLabel value={balanceLinearProgress} />
                     <Typography level="body-sm">Disposable Rs. {disposableThisMonth}</Typography>
                 </CardContent>

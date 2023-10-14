@@ -40,7 +40,7 @@ export default function CreditCard() {
                 <CircularProgressWithColor value={nextMonthUnbilledProgress}></CircularProgressWithColor>
                 <CardContent orientation='vertical' sx={{ paddingLeft: 2 }}>
                     <Typography level="body-md">{nextMonthName} Unbilled</Typography>
-                    <Typography level="h2">{csvData.unbilledNextMonth}</Typography>
+                    <Typography level="h3">{csvData.unbilledNextMonth}</Typography>
                 </CardContent>
             </CardContent>
 
@@ -49,7 +49,7 @@ export default function CreditCard() {
 
                 <CardContent orientation='vertical' sx={{ paddingLeft: 2 }}>
                     <Typography level="body-md">{nextToNextMonthName} Unbilled</Typography>
-                    <Typography level="h2">{csvData.unbilledNextNextMonth}</Typography>
+                    <Typography level="h3">{csvData.unbilledNextNextMonth}</Typography>
                 </CardContent>
             </CardContent>
 

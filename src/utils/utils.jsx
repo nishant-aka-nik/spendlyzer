@@ -20,3 +20,13 @@ export function getNextToNextMonthName() {
     return nextToNextMonthName;
 }
 
+export function bgRandomizer() {
+    const randomInteger = getRandomInt(1, 5);
+    return `/static/images/cards/cardheader${randomInteger}.jpg`
+}
+
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
