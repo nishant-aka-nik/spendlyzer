@@ -1,51 +1,76 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/joy/CardContent';
-import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/joy/Typography';
 import CircularProgress from '@mui/joy/CircularProgress';
 import Divider from '@mui/material/Divider';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
+import { getNextMonthName, getNextToNextMonthName } from './../utils/utils'
+import { useCSVData } from './CSVDataContext';
 
 
 
 export default function CreditCard() {
-    return (
-        <Card sx={{ maxWidth: 'xl' }}>
-            <CardMedia
-                component="img" // Use 'img' as the component type for displaying an image
-                title="clouds" // Set a title for the image
-                height='100'
-                src='/static/images/cards/accountheader.jpg'
-                
-            />
+    const nextMonthName = getNextMonthName();
+    const nextToNextMonthName = getNextToNextMonthName();
 
-            <CardContent orientation='horizontal' sx={{ padding: 2 }}>
-                <Typography level="h2">Credit cards</Typography>
+    const [nextMonthUnbilledProgress, setnextMonethUnbilledProgress] = useState(0)
+    const [nextToNextMonthUnbilledProgress, setnextToNextMonthUnbilledProgress] = useState(0)
+
+    const csvData = useCSVData();
+
+    useEffect(() => {
+        setnextMonethUnbilledProgress((csvData.unbilledNextMonth / 10000) * 100);
+
+    }, [csvData.unbilledNextMonth]);
+
+    useEffect(() => {
+        setnextToNextMonthUnbilledProgress((csvData.unbilledNextNextMonth / 10000) * 100);
+    }, [csvData.unbilledNextNextMonth]);
+
+    return (
+        <Card >
+            <CardContent orientation='horizontal' sx={{ paddingLeft:2, paddingTop:2, paddingBottom:1 }}>
+                <Typography level="h2">Credit Cards</Typography>
             </CardContent>
 
             <Divider variant="middle" />
 
             <CardContent orientation='horizontal' sx={{ padding: 2 }}>
-                <CircularProgress size="lg" determinate value={20}>
-                    <CreditCardIcon />
-                </CircularProgress>
+                <CircularProgressWithColor value={nextMonthUnbilledProgress}></CircularProgressWithColor>
                 <CardContent orientation='vertical' sx={{ paddingLeft: 2 }}>
-                    <Typography level="body-md">November Unbilled</Typography>
-                    <Typography level="h2">Rs. 432.6M</Typography>
+                    <Typography level="body-md">{nextMonthName} Unbilled</Typography>
+                    <Typography level="h3">{csvData.unbilledNextMonth}</Typography>
                 </CardContent>
             </CardContent>
 
             <CardContent orientation='horizontal' sx={{ padding: 2 }}>
-                <CircularProgress size="lg" determinate value={20}>
-                    <CreditCardIcon />
-                </CircularProgress>
+                <CircularProgressWithColor value={nextToNextMonthUnbilledProgress} />
+
                 <CardContent orientation='vertical' sx={{ paddingLeft: 2 }}>
-                    <Typography level="body-md">December Unbilled</Typography>
-                    <Typography level="h2">Rs. 432.6M</Typography>
+                    <Typography level="body-md">{nextToNextMonthName} Unbilled</Typography>
+                    <Typography level="h3">{csvData.unbilledNextNextMonth}</Typography>
                 </CardContent>
             </CardContent>
 
         </Card>
     );
+}
+
+function CircularProgressWithColor(props) {
+    const isLessThan20 = props.value > 80;
+    const barColor = isLessThan20 ? 'danger' : 'success'
+
+    return (
+        <CircularProgress
+            size="lg"
+            determinate
+            variant="outlined"
+            color={barColor}
+            value={props.value}
+        >
+            <CreditCardIcon />
+        </CircularProgress>
+    )
+
 }
