@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/joy/CardContent';
-import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/joy/Typography';
 import CircularProgress from '@mui/joy/CircularProgress';
 import Divider from '@mui/material/Divider';
@@ -11,15 +10,7 @@ import CreditCardIcon from '@mui/icons-material/CreditCard';
 
 export default function CreditCard() {
     return (
-        <Card sx={{ maxWidth: 'xl' }}>
-            <CardMedia
-                component="img" // Use 'img' as the component type for displaying an image
-                title="clouds" // Set a title for the image
-                height='100'
-                src='/static/images/cards/accountheader.jpg'
-                
-            />
-
+        <Card >
             <CardContent orientation='horizontal' sx={{ padding: 2 }}>
                 <Typography level="h2">Credit cards</Typography>
             </CardContent>

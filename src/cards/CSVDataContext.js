@@ -17,6 +17,8 @@ export function CSVDataProvider({ children }) {
                     'https://docs.google.com/spreadsheets/d/e/2PACX-1vSL5rWRNBVPraADWCly6joVjt421bVmFeTQZOGQP2EhI_0nqqoCERt7psHhMuSSxHilco2wc8Nf974Y/pub?gid=512857818&single=true&output=csv'
                 );
 
+                // const response = 1;
+
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
