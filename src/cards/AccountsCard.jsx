@@ -9,7 +9,6 @@ import LinearProgress from '@mui/joy/LinearProgress';
 import {getNextMonthName,getNextToNextMonthName} from './../utils/utils'
 
 
-
 export default function AccountsCard() {
     const nextMonthName = getNextMonthName();
     const nextToNextMonthName = getNextToNextMonthName();
@@ -19,6 +18,8 @@ export default function AccountsCard() {
     const [balanceLinearProgress, setbalanceLinearProgress] = useState(0)
     const [nextMonethSavingLinearProgress, setnextMonethSavingLinearProgress] = useState(0)
     const [nextToNextMonthSavingLinearProgress, setnextToNextMonthSavingLinearProgress] = useState(0)
+
+    const disposableThisMonth =  csvData.thisMonth - 19000*0.2
 
     useEffect(() => {
         setbalanceLinearProgress((csvData.thisMonth / 19000) * 100);
@@ -48,6 +49,7 @@ export default function AccountsCard() {
                     <Typography level="body-md">Balance</Typography>
                     <Typography level="title-lg">Rs. {csvData.thisMonth}</Typography>
                     <LinearProgressWithLabel value={balanceLinearProgress} />
+                    <Typography level="body-sm">Disposable Rs. {disposableThisMonth}</Typography>
                 </CardContent>
             </CardContent>
 
@@ -80,8 +82,6 @@ function LinearProgressWithLabel(props) {
     const barColor = isLessThan20 ? 'danger' : 'success'
     const roundedValue = isNaN(props.value) ? 0 : Math.round(props.value);
 
-
-  
     return (
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <Box sx={{ width: '100%', mr: 1 }}>
