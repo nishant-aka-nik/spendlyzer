@@ -16,9 +16,9 @@ const App = () => {
 
                 spacing={2}
                 sx={{
-                    paddingLeft: 2,
-                    paddingRight: 2,
-                    paddingTop: 2,
+                    paddingLeft: 1,
+                    paddingRight: 1,
+                    paddingTop: 1,
                 }}
             >
                 <Grid item xs={12} sm={6} md={4} lg={4}>
