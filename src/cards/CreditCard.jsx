@@ -30,7 +30,7 @@ export default function CreditCard() {
     }, [csvData.unbilledNextNextMonth]);
 
     return (
-        <Card >
+        <Card sx={{ padding: 1 }}>
             <CardContent orientation='horizontal' sx={{ paddingLeft: 2, paddingTop: 2, paddingBottom: 1 }}>
                 <Typography level="h2">Credit Cards</Typography>
             </CardContent>
@@ -63,7 +63,7 @@ function CircularProgressWithColor(props) {
         <CircularProgress
             size="lg"
             determinate
-            variant="outlined"
+            variant="plain"
             color={barColor}
             value={props.value}
         >
@@ -87,7 +87,12 @@ function CCCards(csvData) {
     }, [csvData]);
 
     return (
-        <CardContent orientation='horizontal' sx={{ padding: 2 }}>
+        <CardContent orientation='horizontal' sx={{
+            padding: 2,
+            background: 'radial-gradient(circle, rgba(255,199,2,0.2399553571428571) 24%, rgba(252,176,69,0.23435311624649857) 100%)',
+            borderRadius: 10,
+            margin: 1
+        }}>
             <CircularProgressWithColor value={csvData.progress} />
             <CardContent orientation='vertical' sx={{ paddingLeft: 2 }}>
                 <Typography level="body-md">{csvData.monthName} Unbilled</Typography>
