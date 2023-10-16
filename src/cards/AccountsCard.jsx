@@ -28,7 +28,7 @@ export default function AccountsCard() {
   }, [csvData]);
 
   return (
-    <Card sx={{padding:1, }}>
+    <Card sx={{padding:1, borderRadius:5}}>
       <CardContent orientation='horizontal' sx={{ paddingLeft: 2, paddingTop: 2, paddingBottom: 1 }}>
         <Typography level="h2">Account</Typography>
       </CardContent>
