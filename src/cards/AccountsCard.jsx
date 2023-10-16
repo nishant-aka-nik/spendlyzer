@@ -28,14 +28,14 @@ export default function AccountsCard() {
   }, [csvData]);
 
   return (
-    <Card >
+    <Card sx={{padding:1, }}>
       <CardContent orientation='horizontal' sx={{ paddingLeft: 2, paddingTop: 2, paddingBottom: 1 }}>
         <Typography level="h2">Account</Typography>
       </CardContent>
 
       <Divider variant="middle" />
 
-      <CardContent orientation='horizontal' sx={{ padding: 1 }}>
+      <CardContent orientation='horizontal' sx={{ padding: 1, background:'#f7d7cd', borderRadius:10, margin:1 }}>
         <CardContent orientation='vertical' sx={{ paddingLeft: 1 }}>
           <Typography level="body-md">Balance</Typography>
           <Typography level="h3">Rs. {csvData.thisMonth}</Typography>
@@ -46,7 +46,7 @@ export default function AccountsCard() {
 
       <Divider variant="middle" />
 
-      <CardContent orientation='horizontal' sx={{ padding: 1 }}>
+      <CardContent orientation='horizontal' sx={{ padding: 1, background:'#b3e099', borderRadius:10, margin:1 }}>
         <CardContent orientation='vertical' sx={{ paddingLeft: 1 }}>
           <Typography level="body-md">
             {nextMonthName} Savings</Typography>
@@ -55,7 +55,7 @@ export default function AccountsCard() {
         </CardContent>
       </CardContent>
 
-      <CardContent orientation='horizontal' sx={{ padding: 1 }}>
+      <CardContent orientation='horizontal' sx={{ padding: 1, background:'#b3e099', borderRadius:10, margin:1 }}>
         <CardContent orientation='vertical' sx={{ paddingLeft: 1 }}>
           <Typography level="body-md">{nextToNextMonthName} Savings</Typography>
           <Typography level="title-lg">Rs. {csvData.nextNextMonth}</Typography>
@@ -80,7 +80,7 @@ function LinearProgressWithLabel(props) {
           color={barColor}
           determinate
           size="lg"
-          variant="outlined"
+          variant="plain"
           value={roundedValue}
         />
       </Box>
