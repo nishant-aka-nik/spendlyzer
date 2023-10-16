@@ -23,9 +23,12 @@ export default function UserCard() {
     return (
         <Card>
             <CardMedia component="img"
-                title="clouds"
                 src={bgImage}
-                height='70'
+                height='150'
+                style={{
+                    width: '100%',   // Adjust the width as needed
+                    objectFit: 'cover', // This will maintain the aspect ratio and cover the entire area
+                  }}
             />
             <CardContent orientation="vertical" sx={{ padding: 2 }}>
 
