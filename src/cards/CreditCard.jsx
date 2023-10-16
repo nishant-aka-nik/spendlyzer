@@ -97,8 +97,8 @@ function CCCards(csvData) {
             <CircularProgressWithColor value={csvData.progress} />
             <CardContent orientation='vertical' sx={{ paddingLeft: 2 }}>
                 <Typography level="body-md">{csvData.monthName} Unbilled</Typography>
-                <Typography level="h3">Rs. {csvData.unbilled}</Typography>
-                <Typography level="body-sm">Amount to repay Rs. {amtToRepay}</Typography>
+                <Typography level="h4">Rs. {csvData.unbilled}</Typography>
+                <Typography level="body-sm">Amount to balance Rs. {amtToRepay}</Typography>
             </CardContent>
         </CardContent>
     )

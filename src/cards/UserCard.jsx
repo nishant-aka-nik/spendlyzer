@@ -26,8 +26,7 @@ export default function UserCard() {
                 src={bgImage}
                 height='150'
                 style={{
-                    width: '100%',   // Adjust the width as needed
-                    objectFit: 'cover', // This will maintain the aspect ratio and cover the entire area
+                    width: '100%'
                   }}
             />
             <CardContent orientation="vertical" sx={{ padding: 2 }}>
