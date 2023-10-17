@@ -4,6 +4,9 @@ import UserCard from './cards/UserCard';
 import CreditCard from './cards/CreditCard';
 import { CSVDataProvider } from './cards/CSVDataContext';
 import { Grid } from '@mui/material';
+import { useCookies } from 'react-cookie';
+import LoginCard from './cards/LoginCard';
+
 
 const styles = {
     container: {
@@ -15,26 +18,37 @@ const styles = {
 };
 
 const App = () => {
+    const [cookies] = useCookies(['isLoggedIn']);
+    const isLoggedIn = cookies.isLoggedIn === true;
+    console.log('isloggedin cookie ---', cookies.isLoggedIn)
+    console.log('isloggedin ---', isLoggedIn)
+
+
     return (
         <CSVDataProvider>
             <div style={styles.container}>
-                <Grid
-                    container
-                    direction="column"
-                    rowSpacing={1}
-                    xs={12} sm={6} md={5} lg={4}
-                    padding={1}
-                >
-                    <Grid item>
-                        <UserCard />
+                {isLoggedIn ? (
+                    <Grid
+                        container
+                        direction="column"
+                        rowSpacing={1}
+                        xs={12} sm={6} md={5} lg={4}
+                        padding={1}
+                    >
+                        <Grid item>
+                            <UserCard />
+                        </Grid>
+                        <Grid item>
+                            <AccountsCard />
+                        </Grid>
+                        <Grid item>
+                            <CreditCard />
+                        </Grid>
                     </Grid>
-                    <Grid item>
-                        <AccountsCard />
-                    </Grid>
-                    <Grid item>
-                        <CreditCard />
-                    </Grid>
-                </Grid>
+                ) : (
+                    <LoginCard />
+                )}
+
             </div>
         </CSVDataProvider>
     );
