@@ -30,7 +30,7 @@ export default function CreditCard() {
     }, [csvData.unbilledNextNextMonth]);
 
     return (
-        <Card sx={{ padding: 1, borderRadius:5 }}>
+        <Card sx={{ padding: 1, borderRadius: 5 }}>
             <CardContent orientation='horizontal' sx={{ paddingLeft: 2, paddingTop: 2, paddingBottom: 1 }}>
                 <Typography level="h2">Credit Cards</Typography>
             </CardContent>

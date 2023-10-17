@@ -4,7 +4,7 @@ import CardContent from "@mui/joy/CardContent";
 import Typography from "@mui/joy/Typography";
 import Divider from "@mui/material/Divider";
 import CardMedia from '@mui/material/CardMedia';
-import {bgRandomizer, getGreetingByTimezone} from './../utils/utils'
+import { bgRandomizer, getGreetingByTimezone } from './../utils/utils'
 import { useCSVData } from './CSVDataContext';
 
 
@@ -27,7 +27,7 @@ export default function UserCard() {
                 height='150'
                 style={{
                     width: '100%'
-                  }}
+                }}
             />
             <CardContent orientation="vertical" sx={{ padding: 2 }}>
 
