@@ -6,7 +6,6 @@ import Divider from "@mui/material/Divider";
 import CardMedia from '@mui/material/CardMedia';
 import { bgRandomizer, getGreetingByTimezone } from './../utils/utils'
 import { useCSVData } from './CSVDataContext';
-import DigitalClock from './DigitalClock';
 
 
 export default function UserCard() {
