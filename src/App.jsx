@@ -6,6 +6,7 @@ import { CSVDataProvider } from './cards/CSVDataContext';
 import { Grid } from '@mui/material';
 import { useCookies } from 'react-cookie';
 import LoginCard from './cards/LoginCard';
+import MenuCard from './cards/MenuCard';
 
 
 const styles = {
@@ -37,6 +38,9 @@ const App = () => {
                     >
                         <Grid item>
                             <UserCard />
+                        </Grid>
+                        <Grid item>
+                            <MenuCard/>
                         </Grid>
                         <Grid item>
                             <AccountsCard />

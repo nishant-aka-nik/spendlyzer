@@ -6,6 +6,7 @@ import Divider from "@mui/material/Divider";
 import CardMedia from '@mui/material/CardMedia';
 import { bgRandomizer, getGreetingByTimezone } from './../utils/utils'
 import { useCSVData } from './CSVDataContext';
+import DigitalClock from './DigitalClock';
 
 
 export default function UserCard() {
@@ -29,14 +30,14 @@ export default function UserCard() {
                     width: '100%'
                 }}
             />
-            <CardContent orientation="vertical" sx={{ padding: 2 }}>
+            <CardContent orientation="horizontal" sx={{ padding: 2, }} >
 
                 <Typography level='title-sm' >
-                    Hi<Typography level='h4'> {csvData.name}, </Typography>
+                    Hi<Typography level='h4'> {csvData.name}, </Typography>{greeting}
 
                 </Typography>
-                <Typography level='title-md'>{greeting}</Typography>
 
+                {/* <DigitalClock /> */}
 
             </CardContent>
             <Divider variant="middle" />
