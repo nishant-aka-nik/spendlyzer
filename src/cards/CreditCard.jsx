@@ -75,6 +75,7 @@ function CircularProgressWithColor(props) {
 function CCCards(csvData) {
     console.log('cccards ', csvData);
     const [amtToRepay, setamtToRepay] = useState(0)
+    const [limitLeft, setlimitLeft] = useState(0)
 
     useEffect(() => {
         let amtToRepay = csvData.unbilled - csvData.unbilledThresold
@@ -84,6 +85,13 @@ function CCCards(csvData) {
         }
 
         setamtToRepay(parseInt(amtToRepay))
+
+        let limitLeft = csvData.unbilledThresold - csvData.unbilled
+        if (limitLeft < 0) {
+            limitLeft = 0
+        }
+        setlimitLeft(parseInt(limitLeft))
+
     }, [csvData]);
 
     return (
@@ -99,6 +107,7 @@ function CCCards(csvData) {
                 <Typography level="body-md">{csvData.monthName} Unbilled</Typography>
                 <Typography level="h4">Rs. {csvData.unbilled}</Typography>
                 <Typography level="body-sm">Amount to balance Rs. {amtToRepay}</Typography>
+                <Typography level="body-sm">Limit Left Rs. {limitLeft}</Typography>
             </CardContent>
         </CardContent>
     )

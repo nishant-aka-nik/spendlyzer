@@ -19,12 +19,14 @@ export default function AccountsCard() {
   const [nextMonethSavingLinearProgress, setnextMonethSavingLinearProgress] = useState(0)
   const [nextToNextMonthSavingLinearProgress, setnextToNextMonthSavingLinearProgress] = useState(0)
   const [disposableMoney, setdisposableMoney] = useState(0)
+  const [perDay, setperDay] = useState(0)
 
   useEffect(() => {
     setbalanceLinearProgress((csvData.thisMonth / csvData.totalSaving) * 100);
     setnextMonethSavingLinearProgress((csvData.nextMonth / csvData.totalSaving) * 100);
     setnextToNextMonthSavingLinearProgress((csvData.nextNextMonth / csvData.totalSaving) * 100);
     setdisposableMoney(getDisposableMoney(csvData))
+    setperDay(perDayCalculator(csvData.thisMonth))
   }, [csvData]);
 
   return (
@@ -40,7 +42,8 @@ export default function AccountsCard() {
           <Typography level="body-md">Balance</Typography>
           <Typography level="h3">Rs. {csvData.thisMonth}</Typography>
           <LinearProgressWithLabel value={balanceLinearProgress} />
-          <Typography level="body-sm">Disposable Rs. {disposableMoney}</Typography>
+          <Typography level="body-sm">💠 Per day spend limit Rs. {perDay}</Typography>
+          <Typography level="body-sm">💸 Disposable Rs. {disposableMoney}</Typography>
         </CardContent>
       </CardContent>
 
@@ -99,4 +102,26 @@ function getDisposableMoney(csvData) {
     return 0;
   }
   return disposable
+}
+
+function perDayCalculator(amount) {
+  // Get the current date
+  const currentDate = new Date();
+
+  // Calculate the last date of the current month
+  // To find the last date of the month, we set the day to 0 of the next month
+  const lastDateOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+
+  // Calculate the time difference in milliseconds between the last date of the month and the current date
+  const timeDifference = lastDateOfMonth.getTime() - currentDate.getTime();
+
+  // Calculate the number of days in between by dividing the time difference by the number of milliseconds in a day
+  const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
+
+  // Print the results
+  console.log('Current Date:', currentDate.toDateString());
+  console.log('Last Date of the Month:', lastDateOfMonth.toDateString());
+  console.log('Number of Days in Between:', daysDifference);
+
+  return (amount / (daysDifference + 1))
 }
