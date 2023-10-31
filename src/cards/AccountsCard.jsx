@@ -6,12 +6,12 @@ import Divider from '@mui/material/Divider';
 import { useCSVData } from './CSVDataContext';
 import Box from '@mui/material/Box';
 import LinearProgress from '@mui/joy/LinearProgress';
-import { getNextMonthName, getNextToNextMonthName } from './../utils/utils'
+import { getMonthName } from './../utils/utils'
 
 
 export default function AccountsCard() {
-  const nextMonthName = getNextMonthName();
-  const nextToNextMonthName = getNextToNextMonthName();
+  const nextMonthName = getMonthName(1);
+  const nextToNextMonthName = getMonthName(2);
 
   const csvData = useCSVData();
 
@@ -117,11 +117,6 @@ function perDayCalculator(amount) {
 
   // Calculate the number of days in between by dividing the time difference by the number of milliseconds in a day
   const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
-
-  // Print the results
-  console.log('Current Date:', currentDate.toDateString());
-  console.log('Last Date of the Month:', lastDateOfMonth.toDateString());
-  console.log('Number of Days in Between:', daysDifference);
 
   return (amount / (daysDifference + 1))
 }

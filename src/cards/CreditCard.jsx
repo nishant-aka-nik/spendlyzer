@@ -5,14 +5,14 @@ import Typography from '@mui/joy/Typography';
 import CircularProgress from '@mui/joy/CircularProgress';
 import Divider from '@mui/material/Divider';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
-import { getNextMonthName, getNextToNextMonthName } from './../utils/utils'
+import { getMonthName } from './../utils/utils'
 import { useCSVData } from './CSVDataContext';
 
 
 
 export default function CreditCard() {
-    const nextMonthName = getNextMonthName();
-    const nextToNextMonthName = getNextToNextMonthName();
+    const nextMonthName = getMonthName(1);
+    const nextToNextMonthName = getMonthName(2);
 
     const [nextMonthUnbilledProgress, setnextMonethUnbilledProgress] = useState(0)
     const [nextToNextMonthUnbilledProgress, setnextToNextMonthUnbilledProgress] = useState(0)
