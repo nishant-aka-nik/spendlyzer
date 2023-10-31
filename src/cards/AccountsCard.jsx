@@ -118,5 +118,5 @@ function perDayCalculator(amount) {
   // Calculate the number of days in between by dividing the time difference by the number of milliseconds in a day
   const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
 
-  return (amount / (daysDifference + 1))
+  return parseInt(amount / (daysDifference + 1))
 }
