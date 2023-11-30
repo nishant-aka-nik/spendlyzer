@@ -30,14 +30,17 @@ export default function AccountsCard() {
   }, [csvData]);
 
   return (
-    <Card sx={{ padding: 1, borderRadius: 5 }}>
+    <Card sx={{ padding: 1, borderRadius: 5, background: '#ffded6' }}>
       <CardContent orientation='horizontal' sx={{ paddingLeft: 2, paddingTop: 2, paddingBottom: 1 }}>
         <Typography level="h2">Account</Typography>
       </CardContent>
 
       <Divider variant="middle" />
 
-      <CardContent orientation='horizontal' sx={{ padding: 1, background: '#f7d7cd', borderRadius: 10, margin: 1 }}>
+      <CardContent orientation='horizontal' sx={{
+        padding: 1, background: '#f7d7cd', borderRadius: 10, margin: 1,
+        boxShadow: 'inset -1px 1px 5px #c6bbb8,inset 1px -1px 5px #c6bbb8',
+      }}>
         <CardContent orientation='vertical' sx={{ paddingLeft: 1 }}>
           <Typography level="body-md">Balance</Typography>
           <Typography level="h3">Rs. {csvData.thisMonth}</Typography>
@@ -49,7 +52,10 @@ export default function AccountsCard() {
 
       <Divider variant="middle" />
 
-      <CardContent orientation='horizontal' sx={{ padding: 1, background: '#b3e099', borderRadius: 10, margin: 1 }}>
+      <CardContent orientation='horizontal' sx={{
+        padding: 1, background: '#b3e099', borderRadius: 10, margin: 1,
+        boxShadow: 'inset -1px 1px 5px #8fb37a,inset 1px -1px 5px #8fb37a',
+      }}>
         <CardContent orientation='vertical' sx={{ paddingLeft: 1 }}>
           <Typography level="title-md">
             {nextMonthName} Savings</Typography>
@@ -58,7 +64,10 @@ export default function AccountsCard() {
         </CardContent>
       </CardContent>
 
-      <CardContent orientation='horizontal' sx={{ padding: 1, background: '#b3e099', borderRadius: 10, margin: 1 }}>
+      <CardContent orientation='horizontal' sx={{
+        padding: 1, background: '#b3e099', borderRadius: 10, margin: 1,
+        boxShadow: 'inset -1px 1px 5px #8fb37a,inset 1px -1px 5px #8fb37a',
+      }}>
         <CardContent orientation='vertical' sx={{ paddingLeft: 1 }}>
           <Typography level="title-md">{nextToNextMonthName} Savings</Typography>
           <Typography level="title-lg">Rs. {csvData.nextNextMonth}</Typography>
@@ -74,9 +83,9 @@ export default function AccountsCard() {
 function LinearProgressWithLabel(props) {
   const { value, invert } = props;
   let isLessThan20 = 0
-  if (invert){
+  if (invert) {
     isLessThan20 = value > 80;
-  }else{
+  } else {
     isLessThan20 = value < 20;
   }
   const barColor = isLessThan20 ? 'danger' : 'success'
@@ -105,9 +114,9 @@ function LinearProgressWithLabel(props) {
 function LinearProgressWithLabelAndColor(props) {
   const { value, invert, color } = props;
   let isLessThan20 = 0
-  if (invert){
+  if (invert) {
     isLessThan20 = value > 80;
-  }else{
+  } else {
     isLessThan20 = value < 20;
   }
   const barColor = isLessThan20 ? 'danger' : color
@@ -121,7 +130,7 @@ function LinearProgressWithLabelAndColor(props) {
           size="lg"
           variant="plain"
           value={roundedValue}
-          sx={{color: barColor}}
+          sx={{ color: barColor }}
         />
       </Box>
       <Box sx={{ minWidth: 35 }}>
