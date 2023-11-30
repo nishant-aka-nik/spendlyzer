@@ -21,12 +21,12 @@ export default function CreditCard() {
     const csvData = useCSVData();
 
     useEffect(() => {
-        setnextMonethUnbilledProgress((csvData.unbilledNextMonth / 10000) * 100);
+        setnextMonethUnbilledProgress(parseInt((csvData.unbilledNextMonth / 10000) * 100));
 
     }, [csvData]);
 
     useEffect(() => {
-        setnextToNextMonthUnbilledProgress((csvData.unbilledNextNextMonth / 10000) * 100);
+        setnextToNextMonthUnbilledProgress(parseInt((csvData.unbilledNextNextMonth / 10000) * 100));
     }, [csvData.unbilledNextNextMonth]);
 
     return (
@@ -42,12 +42,14 @@ export default function CreditCard() {
                 monthName: nextMonthName,
                 unbilled: csvData.unbilledNextMonth,
                 unbilledThresold: csvData.unbilledThresold,
+                disposableThreshold: csvData.disposableThresold
             }} />
             <CCCards {...{
                 progress: nextToNextMonthUnbilledProgress,
                 monthName: nextToNextMonthName,
                 unbilled: csvData.unbilledNextNextMonth,
                 unbilledThresold: csvData.unbilledThresold,
+                disposableThreshold: csvData.disposableThresold
             }} />
 
 
@@ -76,6 +78,10 @@ function CCCards(csvData) {
     console.log('cccards ', csvData);
     const [amtToRepay, setamtToRepay] = useState(0)
     const [limitLeft, setlimitLeft] = useState(0)
+    const [disposableLeft, setdisposableLeft] = useState(0)
+    const [limitLeftColor, setlimitLeftColor] = useState('success')
+    const [amtToRepayColor, setamtToRepayColor] = useState('success')
+
 
     useEffect(() => {
         let amtToRepay = csvData.unbilled - csvData.unbilledThresold
@@ -86,11 +92,29 @@ function CCCards(csvData) {
 
         setamtToRepay(parseInt(amtToRepay))
 
-        let limitLeft = csvData.unbilledThresold - csvData.unbilled
+        let limitLeft = csvData.unbilledThresold - csvData.unbilled;
         if (limitLeft < 0) {
             limitLeft = 0
         }
         setlimitLeft(parseInt(limitLeft))
+
+        //temp variable then with temp var we will set the original var
+        const isLimitLeftLessThan20 = (100 - csvData.progress) < 20
+        if (isLimitLeftLessThan20) {
+            setlimitLeftColor('danger')
+        }
+
+        const isAmtToRepayLessThan20 = (amtToRepay > 2000)
+        if (isAmtToRepayLessThan20){
+            setamtToRepayColor('danger')
+        }
+
+
+        let disposableLeft = csvData.disposableThreshold - csvData.unbilled
+        if (disposableLeft < 0) {
+            disposableLeft = 0
+        }
+        setdisposableLeft(parseInt(disposableLeft))
 
     }, [csvData]);
 
@@ -106,8 +130,9 @@ function CCCards(csvData) {
             <CardContent orientation='vertical' sx={{ paddingLeft: 2 }}>
                 <Typography level="body-md">{csvData.monthName} Unbilled</Typography>
                 <Typography level="h4">Rs. {csvData.unbilled}</Typography>
-                <Typography level="body-sm">Amount to balance Rs. {amtToRepay}</Typography>
-                <Typography level="body-sm">Limit Left Rs. {limitLeft}</Typography>
+                <Typography level="body-sm">Amount to balance rs. <Typography level='title-lg' color={amtToRepayColor}>{amtToRepay}</Typography></Typography>
+                <Typography level="body-sm">Limit Left rs. <Typography level='title-lg' color={limitLeftColor}>{limitLeft}</Typography></Typography>
+                <Typography level="body-sm">Disposable Left rs. <Typography level='title-lg' color='success'>{disposableLeft}</Typography></Typography>
             </CardContent>
         </CardContent>
     )

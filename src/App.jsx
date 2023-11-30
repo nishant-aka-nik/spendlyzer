@@ -7,6 +7,7 @@ import { Grid } from '@mui/material';
 import { useCookies } from 'react-cookie';
 import LoginCard from './cards/LoginCard';
 import MenuCard from './cards/MenuCard';
+import DataCard from './cards/DataCard';
 
 
 const styles = {
@@ -39,15 +40,18 @@ const App = () => {
                         <Grid item>
                             <UserCard />
                         </Grid>
-                        <Grid item>
+                        {/* <Grid item>
                             <MenuCard/>
-                        </Grid>
+                        </Grid> */}
                         <Grid item>
                             <AccountsCard />
                         </Grid>
                         <Grid item>
                             <CreditCard />
                         </Grid>
+                        {/* <Grid item>
+                            <DataCard />
+                        </Grid> */}
                     </Grid>
                 ) : (
                     <LoginCard />
