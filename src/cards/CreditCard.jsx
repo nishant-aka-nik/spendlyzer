@@ -7,7 +7,10 @@ import { getMonthName } from './../utils/utils'
 import { useCSVData } from './CSVDataContext';
 import { LinearProgressWithLabel } from './AccountsCard'
 
-
+/*--------------------------------------------------------*/
+const textColor = '#D8F3DC'
+const digitColor = '#C3F550'
+/*--------------------------------------------------------*/
 
 export default function CreditCard() {
     const nextMonthName = getMonthName(1);
@@ -29,9 +32,9 @@ export default function CreditCard() {
     }, [csvData.unbilledNextNextMonth]);
 
     return (
-        <Card sx={{ padding: 1, borderRadius: 5 }}>
+        <Card sx={{ padding: 1, borderRadius: 5 , background: '#255f4e'}}>
             <CardContent orientation='horizontal' sx={{ paddingLeft: 2, paddingTop: 2, paddingBottom: 1 }}>
-                <Typography level="h2">Credit Cards</Typography>
+                <Typography level="h2" sx={{color:textColor}}>Credit Cards</Typography>
             </CardContent>
 
             <Divider variant="middle" />
@@ -78,8 +81,8 @@ function CCCards(csvData) {
     const [amtToRepay, setamtToRepay] = useState(0)
     const [limitLeft, setlimitLeft] = useState(0)
     const [disposableLeft, setdisposableLeft] = useState(0)
-    const [limitLeftColor, setlimitLeftColor] = useState('success')
-    const [amtToRepayColor, setamtToRepayColor] = useState('success')
+    const [limitLeftColor, setlimitLeftColor] = useState(digitColor)
+    const [amtToRepayColor, setamtToRepayColor] = useState(digitColor)
 
 
     useEffect(() => {
@@ -120,23 +123,23 @@ function CCCards(csvData) {
     return (
         <CardContent orientation='vertical' sx={{
             padding: 2,
-            background: 'radial-gradient(circle, rgba(255,199,2,0.2399553571428571) 24%, rgba(252,176,69,0.23435311624649857) 100%)',
+            background: '#14452F',
             borderRadius: 10,
             margin: 1,
             marginBottom:2,
-            // boxShadow: 'inset 5px -5px 10px #e4e4bd,inset -5px 5px 10px #ffffe3',
+            boxShadow: '-5px 5px 10px #102922,5px -5px 10px #205344',
         }}
         >
             {/* <CircularProgressWithColor value={csvData.progress} /> */}
 
             {/* <CardContent orientation='vertical' sx={{ paddingLeft: 2 }}> */}
-                <Typography level="title-md">{csvData.monthName} Unbilled</Typography>
-                <Typography level="h4">Rs. {csvData.unbilled}</Typography>
+                <Typography level="title-md" sx={{color:textColor}}>{csvData.monthName} Unbilled</Typography>
+                <Typography level="h4" sx={{color:textColor}}>Rs. {csvData.unbilled}</Typography>
             <LinearProgressWithLabel value={csvData.progress} invert={true}/>
 
-                <Typography level="body-sm">- Amount to balance rs. <Typography level='title-lg' color={amtToRepayColor}>{amtToRepay}</Typography></Typography>
-                <Typography level="body-sm">- Limit Left rs. <Typography level='title-lg' color={limitLeftColor}>{limitLeft}</Typography></Typography>
-                <Typography level="body-sm">- Disposable Left rs. <Typography level='title-lg' color='success'>{disposableLeft}</Typography></Typography>
+                <Typography level="body-sm" sx={{color:textColor}}>- Amount to balance rs. <Typography level='title-lg' sx={{color:amtToRepayColor}}>{amtToRepay}</Typography></Typography>
+                <Typography level="body-sm" sx={{color:textColor}}>- Limit Left rs. <Typography level='title-lg' sx={{color:limitLeftColor}}>{limitLeft}</Typography></Typography>
+                <Typography level="body-sm" sx={{color:textColor}}>- Disposable Left rs. <Typography level='title-lg' sx={{color:digitColor}}>{disposableLeft}</Typography></Typography>
             </CardContent>
         // </CardContent>
     )
