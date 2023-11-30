@@ -122,10 +122,8 @@ function CCCards(csvData) {
             padding: 2,
             background: 'radial-gradient(circle, rgba(255,199,2,0.2399553571428571) 24%, rgba(252,176,69,0.23435311624649857) 100%)',
             borderRadius: 10,
-            marginTop: 3,
-            marginBottom: 3,
-            marginLeft: 2,  
-            marginRight:2,
+            margin: 1,
+            marginBottom:2,
             boxShadow: 'inset 5px -5px 10px #e4e4bd,inset -5px 5px 10px #ffffe3',
         }}
         >
