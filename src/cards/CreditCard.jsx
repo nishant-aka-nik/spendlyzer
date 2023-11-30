@@ -41,14 +41,14 @@ export default function CreditCard() {
                 monthName: nextMonthName,
                 unbilled: csvData.unbilledNextMonth,
                 unbilledThresold: csvData.unbilledThresold,
-                disposableThreshold: csvData.disposableThresold
+                disposableThreshold: csvData.disposableCCThreshold
             }} />
             <CCCards {...{
                 progress: nextToNextMonthUnbilledProgress,
                 monthName: nextToNextMonthName,
                 unbilled: csvData.unbilledNextNextMonth,
                 unbilledThresold: csvData.unbilledThresold,
-                disposableThreshold: csvData.disposableThresold
+                disposableThreshold: csvData.disposableCCThreshold
             }} />
 
 

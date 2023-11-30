@@ -20,6 +20,7 @@ export default function AccountsCard() {
   const [nextToNextMonthSavingLinearProgress, setnextToNextMonthSavingLinearProgress] = useState(0)
   const [disposableMoney, setdisposableMoney] = useState(0)
   const [perDay, setperDay] = useState(0)
+  const [finalBalance, setfinalBalance] = useState(0)
 
   useEffect(() => {
     setbalanceLinearProgress((csvData.thisMonth / csvData.totalSaving) * 100);
@@ -27,6 +28,7 @@ export default function AccountsCard() {
     setnextToNextMonthSavingLinearProgress((csvData.nextNextMonth / csvData.totalSaving) * 100);
     setdisposableMoney(getDisposableMoney(csvData))
     setperDay(perDayCalculator(csvData.thisMonth))
+    setfinalBalance(getFinalBalance(csvData))
   }, [csvData]);
 
   return (
@@ -43,8 +45,9 @@ export default function AccountsCard() {
       }}>
         <CardContent orientation='vertical' sx={{ paddingLeft: 1 }}>
           <Typography level="title-md">Balance</Typography>
-          <Typography level="h3">Rs. {csvData.thisMonth}</Typography>
+          <Typography level="h3">Rs. {finalBalance}</Typography>
           <LinearProgressWithLabel value={balanceLinearProgress} />
+          <Typography level="body-sm">- Cash rs. <Typography level='title-lg' color={'success'}>{csvData.thisMonth}</Typography></Typography>
           <Typography level="body-sm">- Per day spend limit rs. <Typography level='title-lg' color={'success'}>{perDay}</Typography></Typography>
           <Typography level="body-sm">- Disposable cash rs. <Typography level='title-lg' color={'success'}>{disposableMoney}</Typography></Typography>
         </CardContent>
@@ -144,12 +147,24 @@ function LinearProgressWithLabelAndColor(props) {
 
 
 function getDisposableMoney(csvData) {
-  const disposable = csvData.thisMonth - (csvData.totalSaving * 0.2)
+  const disposable = csvData.thisMonth - (csvData.totalSaving * (csvData.disposableThresholdPercentage / 100))
   if (disposable < 0 || isNaN(disposable)) {
     return 0;
   }
   return disposable
 }
+
+function getFinalBalance(csvData) {
+  const currentDate = new Date();
+  const day = currentDate.getDate();
+
+  const unbilledValue = day < csvData.minCCBillingDate ? csvData.unbilledNextMonth : csvData.unbilledNextNextMonth;
+
+  const finalBalance = +csvData.thisMonth + (+csvData.unbilledThresold - +unbilledValue);
+
+  return finalBalance;
+}
+
 
 function perDayCalculator(amount) {
   // Get the current date
