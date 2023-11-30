@@ -42,8 +42,8 @@ export default function AccountsCard() {
           <Typography level="body-md">Balance</Typography>
           <Typography level="h3">Rs. {csvData.thisMonth}</Typography>
           <LinearProgressWithLabel value={balanceLinearProgress} />
-          <Typography level="body-sm">💠 Per day spend limit rs. <Typography level='title-lg' color={'success'}>{perDay}</Typography></Typography>
-          <Typography level="body-sm">💸 Disposable cash rs. <Typography level='title-lg' color={'success'}>{disposableMoney}</Typography></Typography>
+          <Typography level="body-sm">- Per day spend limit rs. <Typography level='title-lg' color={'success'}>{perDay}</Typography></Typography>
+          <Typography level="body-sm">- Disposable cash rs. <Typography level='title-lg' color={'success'}>{disposableMoney}</Typography></Typography>
         </CardContent>
       </CardContent>
 

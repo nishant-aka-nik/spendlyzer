@@ -134,9 +134,9 @@ function CCCards(csvData) {
                 <Typography level="h4">Rs. {csvData.unbilled}</Typography>
             <LinearProgressWithLabel value={csvData.progress} invert={true}/>
 
-                <Typography level="body-sm">Amount to balance rs. <Typography level='title-lg' color={amtToRepayColor}>{amtToRepay}</Typography></Typography>
-                <Typography level="body-sm">Limit Left rs. <Typography level='title-lg' color={limitLeftColor}>{limitLeft}</Typography></Typography>
-                <Typography level="body-sm">Disposable Left rs. <Typography level='title-lg' color='success'>{disposableLeft}</Typography></Typography>
+                <Typography level="body-sm">- Amount to balance rs. <Typography level='title-lg' color={amtToRepayColor}>{amtToRepay}</Typography></Typography>
+                <Typography level="body-sm">- Limit Left rs. <Typography level='title-lg' color={limitLeftColor}>{limitLeft}</Typography></Typography>
+                <Typography level="body-sm">- Disposable Left rs. <Typography level='title-lg' color='success'>{disposableLeft}</Typography></Typography>
             </CardContent>
         // </CardContent>
     )
