@@ -105,7 +105,7 @@ function CCCards(csvData) {
         }
 
         const isAmtToRepayLessThan20 = (amtToRepay > 2000)
-        if (isAmtToRepayLessThan20){
+        if (isAmtToRepayLessThan20) {
             setamtToRepayColor('danger')
         }
 
@@ -123,7 +123,11 @@ function CCCards(csvData) {
             padding: 2,
             background: 'radial-gradient(circle, rgba(255,199,2,0.2399553571428571) 24%, rgba(252,176,69,0.23435311624649857) 100%)',
             borderRadius: 10,
-            margin: 1,
+            marginTop: 3,
+            marginBottom: 3,
+            marginLeft: 2,
+            marginRight:2,
+            boxShadow: '0px 0px 6px 2px rgba(150,12,35,1)',
         }}
         >
             <CircularProgressWithColor value={csvData.progress} />
