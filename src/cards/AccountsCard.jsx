@@ -27,7 +27,7 @@ export default function AccountsCard() {
     setnextMonethSavingLinearProgress((csvData.nextMonth / csvData.totalSaving) * 100);
     setnextToNextMonthSavingLinearProgress((csvData.nextNextMonth / csvData.totalSaving) * 100);
     setdisposableMoney(getDisposableMoney(csvData))
-    setperDay(perDayCalculator(csvData.thisMonth))
+    setperDay(perDayCalculator(getFinalBalance(csvData)))
     setfinalBalance(getFinalBalance(csvData))
   }, [csvData]);
 
