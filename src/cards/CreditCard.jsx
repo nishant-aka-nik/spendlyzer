@@ -2,11 +2,10 @@ import React, { useState, useEffect } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/joy/CardContent';
 import Typography from '@mui/joy/Typography';
-import CircularProgress from '@mui/joy/CircularProgress';
 import Divider from '@mui/material/Divider';
-import CreditCardIcon from '@mui/icons-material/CreditCard';
 import { getMonthName } from './../utils/utils'
 import { useCSVData } from './CSVDataContext';
+import { LinearProgressWithLabel } from './AccountsCard'
 
 
 
@@ -57,22 +56,22 @@ export default function CreditCard() {
     );
 }
 
-function CircularProgressWithColor(props) {
-    const isLessThan20 = props.value > 80;
-    const barColor = isLessThan20 ? 'danger' : 'success'
+// function CircularProgressWithColor(props) {
+//     const isLessThan20 = props.value > 80;
+//     const barColor = isLessThan20 ? 'danger' : 'success'
 
-    return (
-        <CircularProgress
-            size="lg"
-            determinate
-            variant="plain"
-            color={barColor}
-            value={props.value}
-        >
-            <CreditCardIcon />
-        </CircularProgress>
-    )
-}
+//     return (
+//         <CircularProgress
+//             size="lg"
+//             determinate
+//             variant="plain"
+//             color={barColor}
+//             value={props.value}
+//         >
+//             <CreditCardIcon />
+//         </CircularProgress>
+//     )
+// }
 
 function CCCards(csvData) {
     console.log('cccards ', csvData);
@@ -119,26 +118,29 @@ function CCCards(csvData) {
     }, [csvData]);
 
     return (
-        <CardContent orientation='horizontal' sx={{
+        <CardContent orientation='vertical' sx={{
             padding: 2,
             background: 'radial-gradient(circle, rgba(255,199,2,0.2399553571428571) 24%, rgba(252,176,69,0.23435311624649857) 100%)',
             borderRadius: 10,
             marginTop: 3,
             marginBottom: 3,
-            marginLeft: 2,
+            marginLeft: 2,  
             marginRight:2,
-            boxShadow: '0px 0px 6px 2px rgba(150,12,35,1)',
+            boxShadow: 'inset 5px -5px 10px #e4e4bd,inset -5px 5px 10px #ffffe3',
         }}
         >
-            <CircularProgressWithColor value={csvData.progress} />
-            <CardContent orientation='vertical' sx={{ paddingLeft: 2 }}>
-                <Typography level="body-md">{csvData.monthName} Unbilled</Typography>
+            {/* <CircularProgressWithColor value={csvData.progress} /> */}
+
+            {/* <CardContent orientation='vertical' sx={{ paddingLeft: 2 }}> */}
+                <Typography level="title-md">{csvData.monthName} Unbilled</Typography>
                 <Typography level="h4">Rs. {csvData.unbilled}</Typography>
+            <LinearProgressWithLabel value={csvData.progress} invert={true}/>
+
                 <Typography level="body-sm">Amount to balance rs. <Typography level='title-lg' color={amtToRepayColor}>{amtToRepay}</Typography></Typography>
                 <Typography level="body-sm">Limit Left rs. <Typography level='title-lg' color={limitLeftColor}>{limitLeft}</Typography></Typography>
                 <Typography level="body-sm">Disposable Left rs. <Typography level='title-lg' color='success'>{disposableLeft}</Typography></Typography>
             </CardContent>
-        </CardContent>
+        // </CardContent>
     )
 
 }

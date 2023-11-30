@@ -51,7 +51,7 @@ export default function AccountsCard() {
 
       <CardContent orientation='horizontal' sx={{ padding: 1, background: '#b3e099', borderRadius: 10, margin: 1 }}>
         <CardContent orientation='vertical' sx={{ paddingLeft: 1 }}>
-          <Typography level="body-md">
+          <Typography level="title-md">
             {nextMonthName} Savings</Typography>
           <Typography level="title-lg">Rs. {csvData.nextMonth}</Typography>
           <LinearProgressWithLabel value={nextMonethSavingLinearProgress} />
@@ -60,7 +60,7 @@ export default function AccountsCard() {
 
       <CardContent orientation='horizontal' sx={{ padding: 1, background: '#b3e099', borderRadius: 10, margin: 1 }}>
         <CardContent orientation='vertical' sx={{ paddingLeft: 1 }}>
-          <Typography level="body-md">{nextToNextMonthName} Savings</Typography>
+          <Typography level="title-md">{nextToNextMonthName} Savings</Typography>
           <Typography level="title-lg">Rs. {csvData.nextNextMonth}</Typography>
           <LinearProgressWithLabel value={nextToNextMonthSavingLinearProgress} />
         </CardContent>
@@ -72,7 +72,13 @@ export default function AccountsCard() {
 }
 
 function LinearProgressWithLabel(props) {
-  const isLessThan20 = props.value < 20;
+  const { value, invert } = props;
+  let isLessThan20 = 0
+  if (invert){
+    isLessThan20 = value > 80;
+  }else{
+    isLessThan20 = value < 20;
+  }
   const barColor = isLessThan20 ? 'danger' : 'success'
   const roundedValue = isNaN(props.value) ? 0 : Math.round(props.value);
 
@@ -120,3 +126,5 @@ function perDayCalculator(amount) {
 
   return parseInt(amount / (daysDifference + 1))
 }
+
+export { LinearProgressWithLabel };
