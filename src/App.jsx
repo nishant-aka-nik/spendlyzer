@@ -6,8 +6,6 @@ import { CSVDataProvider } from './cards/CSVDataContext';
 import { Grid } from '@mui/material';
 import { useCookies } from 'react-cookie';
 import LoginCard from './cards/LoginCard';
-import MenuCard from './cards/MenuCard';
-import DataCard from './cards/DataCard';
 
 
 const styles = {
