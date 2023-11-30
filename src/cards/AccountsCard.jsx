@@ -42,7 +42,7 @@ export default function AccountsCard() {
         boxShadow: 'inset -1px 1px 5px #c6bbb8,inset 1px -1px 5px #c6bbb8',
       }}>
         <CardContent orientation='vertical' sx={{ paddingLeft: 1 }}>
-          <Typography level="body-md">Balance</Typography>
+          <Typography level="title-md">Balance</Typography>
           <Typography level="h3">Rs. {csvData.thisMonth}</Typography>
           <LinearProgressWithLabel value={balanceLinearProgress} />
           <Typography level="body-sm">- Per day spend limit rs. <Typography level='title-lg' color={'success'}>{perDay}</Typography></Typography>
@@ -66,7 +66,7 @@ export default function AccountsCard() {
 
       <CardContent orientation='horizontal' sx={{
         padding: 1, background: '#b3e099', borderRadius: 10, margin: 1,
-        boxShadow: 'inset -1px 1px 5px #8fb37a,inset 1px -1px 5px #8fb37a',
+        boxShadow: 'inset -1px 1px 5px #a5ce8d,inset 1px -1px 5px #a5ce8d',
       }}>
         <CardContent orientation='vertical' sx={{ paddingLeft: 1 }}>
           <Typography level="title-md">{nextToNextMonthName} Savings</Typography>

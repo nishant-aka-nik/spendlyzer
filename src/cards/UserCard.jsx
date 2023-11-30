@@ -29,9 +29,9 @@ export default function UserCard() {
                     width: '100%'
                 }}
             />
-            <CardContent orientation="horizontal" sx={{ padding: 2, }} >
+            <CardContent orientation="horizontal" sx={{ padding: 2, backgroundImage:'radial-gradient(circle, #051937, #004d7a, #008793, #00bf72, #a8eb12)'}} >
 
-                <Typography level='title-sm' >
+                <Typography level='title-sm' sx={{color:'white'}}>
                     Hi<Typography level='h4'> {csvData.name}, </Typography>{greeting}
 
                 </Typography>
