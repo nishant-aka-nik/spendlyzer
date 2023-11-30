@@ -6,6 +6,7 @@ import { CSVDataProvider } from './cards/CSVDataContext';
 import { Grid } from '@mui/material';
 import { useCookies } from 'react-cookie';
 import LoginCard from './cards/LoginCard';
+import InvestmentReturnsCard from './cards/InvestmentReturnsCard';
 
 
 const styles = {
@@ -50,6 +51,9 @@ const App = () => {
                         {/* <Grid item>
                             <DataCard />
                         </Grid> */}
+                        <Grid item>
+                            <InvestmentReturnsCard />
+                        </Grid>
                     </Grid>
                 ) : (
                     <LoginCard />

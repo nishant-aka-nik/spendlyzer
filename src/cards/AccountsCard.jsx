@@ -102,6 +102,38 @@ function LinearProgressWithLabel(props) {
   );
 }
 
+function LinearProgressWithLabelAndColor(props) {
+  const { value, invert, color } = props;
+  let isLessThan20 = 0
+  if (invert){
+    isLessThan20 = value > 80;
+  }else{
+    isLessThan20 = value < 20;
+  }
+  const barColor = isLessThan20 ? 'danger' : color
+  const roundedValue = isNaN(props.value) ? 0 : Math.round(props.value);
+
+  return (
+    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+      <Box sx={{ width: '100%', mr: 1 }}>
+        <LinearProgress
+          determinate
+          size="lg"
+          variant="plain"
+          value={roundedValue}
+          sx={{color: barColor}}
+        />
+      </Box>
+      <Box sx={{ minWidth: 35 }}>
+        <Typography variant="body2" color="text.secondary">
+          {`${roundedValue}%`}
+        </Typography>
+      </Box>
+    </Box>
+  );
+}
+
+
 function getDisposableMoney(csvData) {
   const disposable = csvData.thisMonth - (csvData.totalSaving * 0.2)
   if (disposable < 0 || isNaN(disposable)) {
@@ -127,4 +159,4 @@ function perDayCalculator(amount) {
   return parseInt(amount / (daysDifference + 1))
 }
 
-export { LinearProgressWithLabel };
+export { LinearProgressWithLabel, LinearProgressWithLabelAndColor };
