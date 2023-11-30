@@ -38,7 +38,7 @@ export default function AccountsCard() {
       <Divider variant="middle" />
 
       <CardContent orientation='horizontal' sx={{
-        padding: 1, background: '#f7d7cd', borderRadius: 10, margin: 1,
+        padding: 1, background: '#b3e099', borderRadius: 10, margin: 1,
         boxShadow: 'inset -1px 1px 5px #c6bbb8,inset 1px -1px 5px #c6bbb8',
       }}>
         <CardContent orientation='vertical' sx={{ paddingLeft: 1 }}>
