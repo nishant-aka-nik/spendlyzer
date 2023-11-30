@@ -124,7 +124,7 @@ function CCCards(csvData) {
             borderRadius: 10,
             margin: 1,
             marginBottom:2,
-            boxShadow: 'inset 5px -5px 10px #e4e4bd,inset -5px 5px 10px #ffffe3',
+            // boxShadow: 'inset 5px -5px 10px #e4e4bd,inset -5px 5px 10px #ffffe3',
         }}
         >
             {/* <CircularProgressWithColor value={csvData.progress} /> */}
