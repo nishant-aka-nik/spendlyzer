@@ -21,6 +21,7 @@ export default function AccountsCard() {
   const [disposableMoney, setdisposableMoney] = useState(0)
   const [perDay, setperDay] = useState(0)
   const [finalBalance, setfinalBalance] = useState(0)
+  const [todaysCashTransaction, settodaysCashTransaction] = useState([])
 
   useEffect(() => {
     setbalanceLinearProgress((csvData.thisMonth / csvData.totalSaving) * 100);
@@ -29,6 +30,9 @@ export default function AccountsCard() {
     setdisposableMoney(getDisposableMoney(csvData))
     setperDay(perDayCalculator(getFinalBalance(csvData)))
     setfinalBalance(getFinalBalance(csvData))
+
+    settodaysCashTransaction(parseTodaysCashTransaction(csvData))
+
   }, [csvData]);
 
   return (
@@ -77,6 +81,30 @@ export default function AccountsCard() {
           <LinearProgressWithLabel value={nextToNextMonthSavingLinearProgress} />
         </CardContent>
       </CardContent>
+
+
+
+      <Divider variant="middle" />
+
+      {todaysCashTransaction.length > 0 && (
+        <CardContent orientation="horizontal" sx={{
+          padding: 1, background: '#b3e099', borderRadius: 10, margin: 1,
+          boxShadow: 'inset -1px 1px 5px #a5ce8d,inset 1px -1px 5px #a5ce8d',
+        }}>
+          <CardContent orientation="vertical" sx={{ paddingLeft: 1 }}>
+            <Typography level="title-md">Today's Cash Transaction</Typography>
+            <Divider variant="fullWidth" />
+
+            {todaysCashTransaction.map((transaction, index) => (
+              <CardContent orientation="horizontal" key={index}>
+                <Typography level="body-sm">- {transaction.paidAt} of rs. <Typography level="title-md" color='danger'>{transaction.amount}</Typography> </Typography>
+              </CardContent>
+            ))}
+          </CardContent>
+        </CardContent>
+      )}
+
+
 
     </Card>
 
@@ -165,6 +193,17 @@ function getFinalBalance(csvData) {
   return finalBalance;
 }
 
+function parseTodaysCashTransaction(csvData) {
+  console.error('csvData.todaysTransaction---', csvData.todaysTransaction)
+  if (csvData.todaysTransaction) {
+    const decodedString = atob(csvData.todaysTransaction);
+    const jsonObject = JSON.parse(decodedString);
+    console.log('jsonObject', jsonObject)
+    return jsonObject.todaysCashTransaction
+  }
+
+  return []
+}
 
 function perDayCalculator(amount) {
   // Get the current date

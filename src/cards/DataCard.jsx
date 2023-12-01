@@ -18,7 +18,6 @@ function DataCard() {
 
           const csvText = await response.text();
           const csvArray = csvText.split('\n').map((row) => row.split(','));
-          console.log('csvArrayx--x--x-x-x--x-----x-x-x-',csvArray)
 
           // Convert the CSV data to an object with modified keys
           const csvObject = {};
@@ -32,7 +31,6 @@ function DataCard() {
           });
 
           setCsvData(csvObject);
-          console.log('my 0-0-0-0-0-0-0-0-',csvObject)
       } catch (error) {
           console.error('Error fetching CSV:', error);
       }

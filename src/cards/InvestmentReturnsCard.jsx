@@ -42,7 +42,6 @@ export default function InvestmentReturnsCard() {
 }
 
 function Returns(returnsData) {
-    console.log('Returns ', returnsData);
     const [profit, setprofit] = useState(0)
 
 

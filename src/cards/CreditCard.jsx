@@ -74,7 +74,6 @@ export default function CreditCard() {
 // }
 
 function CCCards(csvData) {
-    console.log('cccards ', csvData);
     const [amtToRepay, setamtToRepay] = useState(0)
     const [limitLeft, setlimitLeft] = useState(0)
     const [disposableLeft, setdisposableLeft] = useState(0)
