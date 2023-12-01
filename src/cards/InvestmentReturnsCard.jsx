@@ -24,7 +24,7 @@ export default function InvestmentReturnsCard() {
     return (
         <Card sx={{ padding: 1, 
         borderRadius: 5, 
-        background:'#b1ddb0',
+        background:'#f0f3f5',
         boxShadow:  '-5px 4px 9px #3e5b8b, #6c9ff1',
         }}>
             <CardContent orientation='horizontal' sx={{ paddingLeft: 2, paddingTop: 2, paddingBottom: 1 }}>
@@ -52,15 +52,15 @@ function Returns(returnsData) {
     return (
         <CardContent orientation='vertical' sx={{
             padding: 2,
-            background: '#94c293',
+            background: '#edf2f5',
             borderRadius: 10,
             margin: 1,
-            boxShadow: 'inset -1px 1px 5px #4a614a,inset 1px -1px 5px #4a614a'
+            boxShadow: 'inset -1px 1px 4px #a5cee8,inset 1px -1px 4px #a5cee8'
         }}
         >
             <Typography level="title-md">Target achievement</Typography>
             <Typography level="h4">Rs. {profit}</Typography>
-            <LinearProgressWithLabelAndColor value={returnsData.progress} invert={false} color={'white'} />
+            <LinearProgressWithLabelAndColor value={returnsData.progress} invert={true} color={'#1E7A20'} />
         </CardContent>
     )
 

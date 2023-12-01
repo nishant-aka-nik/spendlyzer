@@ -36,7 +36,7 @@ export default function AccountsCard() {
   }, [csvData]);
 
   return (
-    <Card sx={{ padding: 1, borderRadius: 5, background: '#ffded6' }}>
+    <Card sx={{ padding: 1, borderRadius: 5, background: '#f0f3f5' }}>
       <CardContent orientation='horizontal' sx={{ paddingLeft: 2, paddingTop: 2, paddingBottom: 1 }}>
         <Typography level="h2">Account</Typography>
       </CardContent>
@@ -44,8 +44,8 @@ export default function AccountsCard() {
       <Divider variant="middle" />
 
       <CardContent orientation='horizontal' sx={{
-        padding: 1, background: '#b3e099', borderRadius: 10, margin: 1,
-        boxShadow: 'inset -1px 1px 5px #c6bbb8,inset 1px -1px 5px #c6bbb8',
+        padding: 1, background: '#edf2f5', borderRadius: 10, margin: 1,
+        boxShadow: 'inset -1px 1px 4px #a5cee8,inset 1px -1px 4px #a5cee8',
       }}>
         <CardContent orientation='vertical' sx={{ paddingLeft: 1 }}>
           <Typography level="title-md">Balance</Typography>
@@ -60,7 +60,7 @@ export default function AccountsCard() {
       <Divider variant="middle" />
 
       <CardContent orientation='horizontal' sx={{
-        padding: 1, background: '#b3e099', borderRadius: 10, margin: 1,
+        padding: 1, background: '#edf2f5', borderRadius: 10, margin: 1,
         boxShadow: 'inset -1px 1px 5px #8fb37a,inset 1px -1px 5px #8fb37a',
       }}>
         <CardContent orientation='vertical' sx={{ paddingLeft: 1 }}>
@@ -72,7 +72,7 @@ export default function AccountsCard() {
       </CardContent>
 
       <CardContent orientation='horizontal' sx={{
-        padding: 1, background: '#b3e099', borderRadius: 10, margin: 1,
+        padding: 1, background: '#edf2f5', borderRadius: 10, margin: 1,
         boxShadow: 'inset -1px 1px 5px #a5ce8d,inset 1px -1px 5px #a5ce8d',
       }}>
         <CardContent orientation='vertical' sx={{ paddingLeft: 1 }}>
@@ -88,8 +88,8 @@ export default function AccountsCard() {
 
       {todaysCashTransaction.length > 0 && (
         <CardContent orientation="horizontal" sx={{
-          padding: 1, background: '#b3e099', borderRadius: 10, margin: 1,
-          boxShadow: 'inset -1px 1px 5px #a5ce8d,inset 1px -1px 5px #a5ce8d',
+          padding: 1, background: '#edf2f5', borderRadius: 10, margin: 1,
+          boxShadow: 'inset -1px 1px 5px #ebaeeb,inset 1px -1px 5px #ebaeeb',
         }}>
           <CardContent orientation="vertical" sx={{ paddingLeft: 1 }}>
             <Typography level="title-md">Today's Cash Transaction</Typography>
@@ -97,7 +97,7 @@ export default function AccountsCard() {
 
             {todaysCashTransaction.map((transaction, index) => (
               <CardContent orientation="horizontal" key={index}>
-                <Typography level="body-sm">- {transaction.paidAt} of rs. <Typography level="title-md" color='danger'>{transaction.amount}</Typography> </Typography>
+                <Typography level="body-sm" sx={{ color: '#570957' }}>- {transaction.paidAt} of rs. <Typography level="title-md" sx={{ color: '#800080' }}>{transaction.amount}</Typography> </Typography>
               </CardContent>
             ))}
           </CardContent>
@@ -144,13 +144,14 @@ function LinearProgressWithLabel(props) {
 
 function LinearProgressWithLabelAndColor(props) {
   const { value, invert, color } = props;
-  let isLessThan20 = 0
+  let barColor = ''
   if (invert) {
-    isLessThan20 = value > 80;
+    const isGreaterThan80 = value > 80;
+    barColor = isGreaterThan80 ? color : '#73add1'
   } else {
-    isLessThan20 = value < 20;
+    const isLessThan20 = value < 20;
+    barColor = isLessThan20 ? '#73add1' : color
   }
-  const barColor = isLessThan20 ? 'danger' : color
   const roundedValue = isNaN(props.value) ? 0 : Math.round(props.value);
 
   return (

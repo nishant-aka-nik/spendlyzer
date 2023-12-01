@@ -14,7 +14,7 @@ const styles = {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        background: 'linear-gradient(0deg, rgba(174,238,206,1) 0%, rgba(148,233,203,0) 100%)',
+        background: '#0e1111',
     },
 };
 

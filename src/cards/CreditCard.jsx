@@ -31,7 +31,7 @@ export default function CreditCard() {
     }, [csvData.unbilledNextNextMonth]);
 
     return (
-        <Card sx={{ padding: 1, borderRadius: 5, background: '#f2d29c' }}>
+        <Card sx={{ padding: 1, borderRadius: 5, background: '#f0f3f5' }}>
             <CardContent orientation='horizontal' sx={{ paddingLeft: 2, paddingTop: 2, paddingBottom: 1 }}>
                 <Typography level="h2">Credit Cards</Typography>
             </CardContent>
@@ -58,7 +58,7 @@ export default function CreditCard() {
 
             {todaysCCTransaction.length > 0 && (
                 <CardContent orientation="horizontal" sx={{
-                    padding: 1, background: '#b3e099', borderRadius: 10, margin: 1,
+                    padding: 1, background: '#edf2f5', borderRadius: 10, margin: 1,
                     boxShadow: 'inset -1px 1px 5px #a5ce8d,inset 1px -1px 5px #a5ce8d',
                 }}>
                     <CardContent orientation="vertical" sx={{ paddingLeft: 1 }}>
@@ -142,10 +142,10 @@ function CCCards(csvData) {
     return (
         <CardContent orientation='vertical' sx={{
             padding: 2,
-            background: '#e7ded0',
+            background: '#edf2f5',
             borderRadius: 10,
             margin: 1,
-            boxShadow: 'inset 1px -1px 3px #c6aa71,inset -1px 1px 3px #c6aa71',
+            boxShadow: 'inset 1px -1px 4px #a5cee8,inset -1px 1px 4px #a5cee8',
         }}
         >
             {/* <CircularProgressWithColor value={csvData.progress} /> */}
