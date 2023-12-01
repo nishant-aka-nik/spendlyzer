@@ -9,18 +9,6 @@ import LoginCard from './cards/LoginCard';
 import InvestmentReturnsCard from './cards/InvestmentReturnsCard';
 import './App.css';
 
-const styles = {
-    container: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        background: '#0e1111',
-        margin: 0,
-        padding: 0,
-        height: '100vh'
-    },
-};
-
 const App = () => {
     const [cookies] = useCookies(['isLoggedIn']);
     const isLoggedIn = cookies.isLoggedIn === true;
