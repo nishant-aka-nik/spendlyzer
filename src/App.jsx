@@ -7,7 +7,7 @@ import { Grid } from '@mui/material';
 import { useCookies } from 'react-cookie';
 import LoginCard from './cards/LoginCard';
 import InvestmentReturnsCard from './cards/InvestmentReturnsCard';
-
+import './App.css';
 
 const styles = {
     container: {
@@ -15,6 +15,9 @@ const styles = {
         alignItems: 'center',
         justifyContent: 'center',
         background: '#0e1111',
+        margin: 0,
+        padding: 0,
+        height: '100vh'
     },
 };
 
@@ -27,7 +30,7 @@ const App = () => {
 
     return (
         <CSVDataProvider>
-            <div style={styles.container}>
+            <div className="app-container">
                 {isLoggedIn ? (
                     <Grid
                         container
