@@ -15,12 +15,14 @@ export default function CreditCard() {
 
     const [nextMonthUnbilledProgress, setnextMonethUnbilledProgress] = useState(0)
     const [nextToNextMonthUnbilledProgress, setnextToNextMonthUnbilledProgress] = useState(0)
+    const [todaysCCTransaction, settodaysCCTransaction] = useState([])
 
 
     const csvData = useCSVData();
 
     useEffect(() => {
         setnextMonethUnbilledProgress(parseInt((csvData.unbilledNextMonth / 10000) * 100));
+        settodaysCCTransaction(parseTodaysCCTransaction(csvData))
 
     }, [csvData]);
 
@@ -29,7 +31,7 @@ export default function CreditCard() {
     }, [csvData.unbilledNextNextMonth]);
 
     return (
-        <Card sx={{ padding: 1, borderRadius: 5, background:'#f2d29c' }}>
+        <Card sx={{ padding: 1, borderRadius: 5, background: '#f2d29c' }}>
             <CardContent orientation='horizontal' sx={{ paddingLeft: 2, paddingTop: 2, paddingBottom: 1 }}>
                 <Typography level="h2">Credit Cards</Typography>
             </CardContent>
@@ -50,6 +52,27 @@ export default function CreditCard() {
                 unbilledThresold: csvData.unbilledThresold,
                 disposableThreshold: csvData.disposableCCThreshold
             }} />
+
+
+            <Divider variant="middle" />
+
+            {todaysCCTransaction.length > 0 && (
+                <CardContent orientation="horizontal" sx={{
+                    padding: 1, background: '#b3e099', borderRadius: 10, margin: 1,
+                    boxShadow: 'inset -1px 1px 5px #a5ce8d,inset 1px -1px 5px #a5ce8d',
+                }}>
+                    <CardContent orientation="vertical" sx={{ paddingLeft: 1 }}>
+                        <Typography level="title-md">Today's CC Transaction</Typography>
+                        <Divider variant="fullWidth" />
+
+                        {todaysCCTransaction.map((transaction, index) => (
+                            <CardContent orientation="horizontal" key={index}>
+                                <Typography level="body-sm">- {transaction.paidAt} of rs. <Typography level="title-md" color='danger'>{transaction.amount}</Typography> </Typography>
+                            </CardContent>
+                        ))}
+                    </CardContent>
+                </CardContent>
+            )}
 
 
         </Card>
@@ -128,15 +151,27 @@ function CCCards(csvData) {
             {/* <CircularProgressWithColor value={csvData.progress} /> */}
 
             {/* <CardContent orientation='vertical' sx={{ paddingLeft: 2 }}> */}
-                <Typography level="title-md">{csvData.monthName} Unbilled</Typography>
-                <Typography level="h4">Rs. {csvData.unbilled}</Typography>
-            <LinearProgressWithLabel value={csvData.progress} invert={true}/>
+            <Typography level="title-md">{csvData.monthName} Unbilled</Typography>
+            <Typography level="h4">Rs. {csvData.unbilled}</Typography>
+            <LinearProgressWithLabel value={csvData.progress} invert={true} />
 
-                <Typography level="body-sm">- Amount to balance rs. <Typography level='title-lg' color={amtToRepayColor}>{amtToRepay}</Typography></Typography>
-                <Typography level="body-sm">- Limit Left rs. <Typography level='title-lg' color={limitLeftColor}>{limitLeft}</Typography></Typography>
-                <Typography level="body-sm">- Disposable Left rs. <Typography level='title-lg' color='success'>{disposableLeft}</Typography></Typography>
-            </CardContent>
+            <Typography level="body-sm">- Amount to balance rs. <Typography level='title-lg' color={amtToRepayColor}>{amtToRepay}</Typography></Typography>
+            <Typography level="body-sm">- Limit Left rs. <Typography level='title-lg' color={limitLeftColor}>{limitLeft}</Typography></Typography>
+            <Typography level="body-sm">- Disposable Left rs. <Typography level='title-lg' color='success'>{disposableLeft}</Typography></Typography>
+        </CardContent>
         // </CardContent>
     )
 
 }
+
+function parseTodaysCCTransaction(csvData) {
+    console.error('csvData.todaysTransaction---', csvData.todaysTransaction)
+    if (csvData.todaysTransaction) {
+      const decodedString = atob(csvData.todaysTransaction);
+      const jsonObject = JSON.parse(decodedString);
+      console.log('jsonObject', jsonObject)
+      return jsonObject.todaysCCTransaction
+    }
+  
+    return []
+  }
