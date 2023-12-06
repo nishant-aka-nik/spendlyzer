@@ -7,6 +7,8 @@ import { Grid } from '@mui/material';
 import { useCookies } from 'react-cookie';
 import LoginCard from './cards/LoginCard';
 import InvestmentReturnsCard from './cards/InvestmentReturnsCard';
+import CashFlowGeneratorCard from './cards/CashFlowGeneratorCard'
+
 import './App.css';
 
 const App = () => {
@@ -44,6 +46,9 @@ const App = () => {
                         </Grid> */}
                         <Grid item>
                             <InvestmentReturnsCard />
+                        </Grid>
+                        <Grid item>
+                            <CashFlowGeneratorCard />
                         </Grid>
                     </Grid>
                 ) : (
