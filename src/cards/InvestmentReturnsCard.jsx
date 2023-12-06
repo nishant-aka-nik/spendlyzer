@@ -4,7 +4,7 @@ import CardContent from '@mui/joy/CardContent';
 import Typography from '@mui/joy/Typography';
 import Divider from '@mui/material/Divider';
 import { useCSVData } from './CSVDataContext';
-import { LinearProgressWithLabelAndColor } from './AccountsCard'
+import { LinearProgressWithLabelAndColor, getBoxShadow } from './AccountsCard'
 
 
 
@@ -12,13 +12,13 @@ export default function InvestmentReturnsCard() {
     const csvData = useCSVData();
     const [targetAchievement, settargetAchievement] = useState(0)
 
-
     useEffect(() => {
 
         const totalProfit = csvData.totalProfit;
         const profitTargetAmount = csvData.profitTargetAmount;
         let targetAchievement = (totalProfit / profitTargetAmount) * 100;
         targetAchievement = targetAchievement < 0 ? 0 : targetAchievement
+        targetAchievement = targetAchievement > 100 ? 100 : targetAchievement
         settargetAchievement(targetAchievement);
     }, [csvData]);
 
@@ -51,14 +51,16 @@ function Returns(returnsData) {
     const [realisableProfit, setrealisableProfit] = useState(0)
     const [returnsProgress, setreturnsProgress] = useState(0)
     const [todaysIndexChange, settodaysIndexChange] = useState(0)
+    const [boxShadow, setboxShadow] = useState('')
 
 
     useEffect(() => {
         setprofit(returnsData.totalProfit)
         setprofitColor(returnsData.totalProfit < 0 ? 'danger' : 'success')
         setrealisableProfit(returnsData.realisableProfit)
-        setreturnsProgress( returnsData.progress > 100 ? 100 : returnsData.progress)
+        setreturnsProgress(returnsData.progress)
         settodaysIndexChange(returnsData.todaysIndexChange)
+        setboxShadow(getBoxShadow({ invert: false, progress: returnsData.progress }))
     }, [returnsData]);
 
     return (
@@ -67,7 +69,7 @@ function Returns(returnsData) {
             background: '#edf2f5',
             borderRadius: 10,
             margin: 1,
-            boxShadow: 'inset -1px 1px 4px #a5cee8,inset 1px -1px 4px #a5cee8'
+            boxShadow
         }}
         >
             <Typography level="title-md">Target achievement</Typography>
@@ -77,7 +79,7 @@ function Returns(returnsData) {
                 <Typography level="title-lg" sx={{ textAlign: 'center' }}>🚩🚩🚩HOLD on just wait a little more🚩🚩🚩</Typography>
             }
             <Typography level="body-lg" color={profitColor}>Realisable Profit Rs. {realisableProfit}</Typography>
-            <Typography level="body-sm" color='neutral'>Today's Index Change -  {todaysIndexChange}%</Typography>
+            <Typography level="body-sm" color='neutral'> - Today's Index Change {todaysIndexChange}%</Typography>
         </CardContent>
     )
 

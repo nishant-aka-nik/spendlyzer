@@ -23,14 +23,18 @@ export default function AccountsCard() {
   const [finalBalance, setfinalBalance] = useState(0)
   const [todaysCashTransaction, settodaysCashTransaction] = useState([])
 
+  const [boxShadow, setboxShadow] = useState('')
+
   useEffect(() => {
-    setbalanceLinearProgress((csvData.thisMonth / csvData.totalSaving) * 100);
+    const progress = (csvData.thisMonth / csvData.totalSaving) * 100
+    setbalanceLinearProgress(progress);
     setnextMonethSavingLinearProgress((csvData.nextMonth / csvData.totalSaving) * 100);
     setnextToNextMonthSavingLinearProgress((csvData.nextNextMonth / csvData.totalSaving) * 100);
     setdisposableMoney(getDisposableMoney(csvData))
     setperDay(perDayCalculator(getFinalBalance(csvData)))
     setfinalBalance(getFinalBalance(csvData))
 
+    setboxShadow(getBoxShadow({ invert: false, progress}))
     settodaysCashTransaction(parseTodaysCashTransaction(csvData))
 
   }, [csvData]);
@@ -45,7 +49,7 @@ export default function AccountsCard() {
 
       <CardContent orientation='horizontal' sx={{
         padding: 1, background: '#edf2f5', borderRadius: 10, margin: 1,
-        boxShadow: 'inset -1px 1px 4px #a5cee8,inset 1px -1px 4px #a5cee8',
+        boxShadow,
       }}>
         <CardContent orientation='vertical' sx={{ paddingLeft: 1 }}>
           <Typography level="title-md">Balance</Typography>
@@ -61,7 +65,7 @@ export default function AccountsCard() {
 
       <CardContent orientation='horizontal' sx={{
         padding: 1, background: '#edf2f5', borderRadius: 10, margin: 1,
-        boxShadow: 'inset -1px 1px 5px #8fb37a,inset 1px -1px 5px #8fb37a',
+        boxShadow,
       }}>
         <CardContent orientation='vertical' sx={{ paddingLeft: 1 }}>
           <Typography level="title-md">
@@ -73,7 +77,7 @@ export default function AccountsCard() {
 
       <CardContent orientation='horizontal' sx={{
         padding: 1, background: '#edf2f5', borderRadius: 10, margin: 1,
-        boxShadow: 'inset -1px 1px 5px #a5ce8d,inset 1px -1px 5px #a5ce8d',
+        boxShadow,
       }}>
         <CardContent orientation='vertical' sx={{ paddingLeft: 1 }}>
           <Typography level="title-md">{nextToNextMonthName} Savings</Typography>
@@ -223,4 +227,15 @@ function perDayCalculator(amount) {
   return parseInt(amount / (daysDifference + 1))
 }
 
-export { LinearProgressWithLabel, LinearProgressWithLabelAndColor };
+function getBoxShadow(req) {
+  let { invert, progress } = req
+  console.info('JSON.stringify(req)',JSON.stringify(req))
+
+  if (invert){
+    return (progress > 80) ? 'inset -1px 1px 5px #f28383,inset 1px -1px 5px #f28383' : 'inset -1px 1px 5px #a5ce8d,inset 1px -1px 5px #a5ce8d';
+  } else {
+    return (progress < 20) ? 'inset -1px 1px 5px #f28383,inset 1px -1px 5px #f28383' : 'inset -1px 1px 5px #a5ce8d,inset 1px -1px 5px #a5ce8d';
+  }
+}
+
+export { LinearProgressWithLabel, LinearProgressWithLabelAndColor, getBoxShadow };

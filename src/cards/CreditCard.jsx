@@ -5,7 +5,7 @@ import Typography from '@mui/joy/Typography';
 import Divider from '@mui/material/Divider';
 import { getMonthName } from './../utils/utils'
 import { useCSVData } from './CSVDataContext';
-import { LinearProgressWithLabel } from './AccountsCard'
+import { LinearProgressWithLabel, getBoxShadow } from './AccountsCard'
 
 
 
@@ -59,7 +59,7 @@ export default function CreditCard() {
             {todaysCCTransaction.length > 0 && (
                 <CardContent orientation="horizontal" sx={{
                     padding: 1, background: '#edf2f5', borderRadius: 10, margin: 1,
-                    boxShadow: 'inset -1px 1px 5px #a5ce8d,inset 1px -1px 5px #a5ce8d',
+                    boxShadow: 'inset -1px 1px 5px #ebaeeb,inset 1px -1px 5px #ebaeeb',
                 }}>
                     <CardContent orientation="vertical" sx={{ paddingLeft: 1 }}>
                         <Typography level="title-md">Today's CC Transaction</Typography>
@@ -67,7 +67,7 @@ export default function CreditCard() {
 
                         {todaysCCTransaction.map((transaction, index) => (
                             <CardContent orientation="horizontal" key={index}>
-                                <Typography level="body-sm">- {transaction.paidAt} of rs. <Typography level="title-md" color='danger'>{transaction.amount}</Typography> </Typography>
+                                <Typography level="body-sm" sx={{ color: '#570957' }}>- {transaction.paidAt} of rs. <Typography level="title-md" color='danger'>{transaction.amount}</Typography> </Typography>
                             </CardContent>
                         ))}
                     </CardContent>
@@ -102,6 +102,7 @@ function CCCards(csvData) {
     const [disposableLeft, setdisposableLeft] = useState(0)
     const [limitLeftColor, setlimitLeftColor] = useState('success')
     const [amtToRepayColor, setamtToRepayColor] = useState('success')
+    const [boxShadow, setboxShadow] = useState('')
 
 
     useEffect(() => {
@@ -137,6 +138,8 @@ function CCCards(csvData) {
         }
         setdisposableLeft(parseInt(disposableLeft))
 
+        setboxShadow(getBoxShadow({ invert: true, progress: csvData.progress}))
+
     }, [csvData]);
 
     return (
@@ -145,7 +148,7 @@ function CCCards(csvData) {
             background: '#edf2f5',
             borderRadius: 10,
             margin: 1,
-            boxShadow: 'inset 1px -1px 4px #a5cee8,inset -1px 1px 4px #a5cee8',
+            boxShadow
         }}
         >
             {/* <CircularProgressWithColor value={csvData.progress} /> */}
@@ -167,11 +170,11 @@ function CCCards(csvData) {
 function parseTodaysCCTransaction(csvData) {
     console.error('csvData.todaysTransaction---', csvData.todaysTransaction)
     if (csvData.todaysTransaction) {
-      const decodedString = atob(csvData.todaysTransaction);
-      const jsonObject = JSON.parse(decodedString);
-      console.log('jsonObject', jsonObject)
-      return jsonObject.todaysCCTransaction
+        const decodedString = atob(csvData.todaysTransaction);
+        const jsonObject = JSON.parse(decodedString);
+        console.log('jsonObject', jsonObject)
+        return jsonObject.todaysCCTransaction
     }
-  
+
     return []
-  }
+}
