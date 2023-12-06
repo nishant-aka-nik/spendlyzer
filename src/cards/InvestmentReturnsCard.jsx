@@ -38,7 +38,8 @@ export default function InvestmentReturnsCard() {
             <Returns {...{
                 progress: targetAchievement,
                 totalProfit: csvData.totalProfit,
-                realisableProfit: csvData.realisableProfit
+                realisableProfit: csvData.realisableProfit,
+                todaysIndexChange: csvData.todaysIndexChange
             }} />
         </Card>
     );
@@ -49,6 +50,7 @@ function Returns(returnsData) {
     const [profitColor, setprofitColor] = useState('success')
     const [realisableProfit, setrealisableProfit] = useState(0)
     const [returnsProgress, setreturnsProgress] = useState(0)
+    const [todaysIndexChange, settodaysIndexChange] = useState(0)
 
 
     useEffect(() => {
@@ -56,6 +58,7 @@ function Returns(returnsData) {
         setprofitColor(returnsData.totalProfit < 0 ? 'danger' : 'success')
         setrealisableProfit(returnsData.realisableProfit)
         setreturnsProgress( returnsData.progress > 100 ? 100 : returnsData.progress)
+        settodaysIndexChange(returnsData.todaysIndexChange)
     }, [returnsData]);
 
     return (
@@ -74,6 +77,7 @@ function Returns(returnsData) {
                 <Typography level="title-lg" sx={{ textAlign: 'center' }}>🚩🚩🚩HOLD on just wait a little more🚩🚩🚩</Typography>
             }
             <Typography level="body-lg" color={profitColor}>Realisable Profit Rs. {realisableProfit}</Typography>
+            <Typography level="body-sm" color='neutral'>Today's Index Change -  {todaysIndexChange}%</Typography>
         </CardContent>
     )
 
