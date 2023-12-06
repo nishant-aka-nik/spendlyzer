@@ -38,6 +38,7 @@ export default function InvestmentReturnsCard() {
             <Returns {...{
                 progress: targetAchievement,
                 totalProfit: csvData.totalProfit,
+                realisableProfit: csvData.realisableProfit
             }} />
         </Card>
     );
@@ -46,11 +47,15 @@ export default function InvestmentReturnsCard() {
 function Returns(returnsData) {
     const [profit, setprofit] = useState(0)
     const [profitColor, setprofitColor] = useState('success')
+    const [realisableProfit, setrealisableProfit] = useState(0)
+    const [returnsProgress, setreturnsProgress] = useState(0)
 
 
     useEffect(() => {
         setprofit(returnsData.totalProfit)
         setprofitColor(returnsData.totalProfit < 0 ? 'danger' : 'success')
+        setrealisableProfit(returnsData.realisableProfit)
+        setreturnsProgress( returnsData.progress > 100 ? 100 : returnsData.progress)
     }, [returnsData]);
 
     return (
@@ -64,10 +69,11 @@ function Returns(returnsData) {
         >
             <Typography level="title-md">Target achievement</Typography>
             <Typography level="h4" color={profitColor}>Rs. {profit}</Typography>
-            <LinearProgressWithLabelAndColor value={returnsData.progress} invert={true} color={'#1E7A20'} />
+            <LinearProgressWithLabelAndColor value={returnsProgress} invert={true} color={'#1E7A20'} />
             {profit < 0 &&
                 <Typography level="title-lg" sx={{ textAlign: 'center' }}>🚩🚩🚩HOLD on just wait a little more🚩🚩🚩</Typography>
             }
+            <Typography level="body-lg" color={profitColor}>Realisable Profit Rs. {realisableProfit}</Typography>
         </CardContent>
     )
 
