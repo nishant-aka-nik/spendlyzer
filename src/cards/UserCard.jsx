@@ -24,7 +24,7 @@ export default function UserCard() {
         <Card>
             <CardMedia component="img"
                 src={bgImage}
-                height='150'
+                height='125'
                 style={{
                     width: '100%'
                 }}
@@ -39,7 +39,6 @@ export default function UserCard() {
                 {/* <DigitalClock /> */}
 
             </CardContent>
-            <Divider variant="middle" />
         </Card>
     );
 }
