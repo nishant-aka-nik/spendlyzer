@@ -4,7 +4,7 @@ import CardContent from "@mui/joy/CardContent";
 import Typography from "@mui/joy/Typography";
 import Divider from "@mui/material/Divider";
 import CardMedia from '@mui/material/CardMedia';
-import {bgRandomizer, getGreetingByTimezone} from './../utils/utils'
+import { bgRandomizer, getGreetingByTimezone } from './../utils/utils'
 import { useCSVData } from './CSVDataContext';
 
 
@@ -23,18 +23,20 @@ export default function UserCard() {
     return (
         <Card>
             <CardMedia component="img"
-                title="clouds"
                 src={bgImage}
-                height='70'
+                height='150'
+                style={{
+                    width: '100%'
+                }}
             />
-            <CardContent orientation="vertical" sx={{ padding: 2 }}>
+            <CardContent orientation="horizontal" sx={{ padding: 2, backgroundImage:'radial-gradient(circle, #051937, #004d7a, #008793, #00bf72, #a8eb12)'}} >
 
-                <Typography level='title-sm' >
-                    Hi<Typography level='h4'> {csvData.name}, </Typography>
+                <Typography level='title-sm' sx={{color:'white'}}>
+                    Hi<Typography level='h4'> {csvData.name}, </Typography>{greeting}
 
                 </Typography>
-                <Typography level='title-md'>{greeting}</Typography>
 
+                {/* <DigitalClock /> */}
 
             </CardContent>
             <Divider variant="middle" />

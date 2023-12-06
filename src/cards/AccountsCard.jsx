@@ -6,12 +6,12 @@ import Divider from '@mui/material/Divider';
 import { useCSVData } from './CSVDataContext';
 import Box from '@mui/material/Box';
 import LinearProgress from '@mui/joy/LinearProgress';
-import { getNextMonthName, getNextToNextMonthName } from './../utils/utils'
+import { getMonthName } from './../utils/utils'
 
 
 export default function AccountsCard() {
-  const nextMonthName = getNextMonthName();
-  const nextToNextMonthName = getNextToNextMonthName();
+  const nextMonthName = getMonthName(1);
+  const nextToNextMonthName = getMonthName(2);
 
   const csvData = useCSVData();
 
@@ -19,49 +19,92 @@ export default function AccountsCard() {
   const [nextMonethSavingLinearProgress, setnextMonethSavingLinearProgress] = useState(0)
   const [nextToNextMonthSavingLinearProgress, setnextToNextMonthSavingLinearProgress] = useState(0)
   const [disposableMoney, setdisposableMoney] = useState(0)
+  const [perDay, setperDay] = useState(0)
+  const [finalBalance, setfinalBalance] = useState(0)
+  const [todaysCashTransaction, settodaysCashTransaction] = useState([])
 
   useEffect(() => {
     setbalanceLinearProgress((csvData.thisMonth / csvData.totalSaving) * 100);
     setnextMonethSavingLinearProgress((csvData.nextMonth / csvData.totalSaving) * 100);
     setnextToNextMonthSavingLinearProgress((csvData.nextNextMonth / csvData.totalSaving) * 100);
     setdisposableMoney(getDisposableMoney(csvData))
+    setperDay(perDayCalculator(getFinalBalance(csvData)))
+    setfinalBalance(getFinalBalance(csvData))
+
+    settodaysCashTransaction(parseTodaysCashTransaction(csvData))
+
   }, [csvData]);
 
   return (
-    <Card >
+    <Card sx={{ padding: 1, borderRadius: 5, background: '#f0f3f5' }}>
       <CardContent orientation='horizontal' sx={{ paddingLeft: 2, paddingTop: 2, paddingBottom: 1 }}>
         <Typography level="h2">Account</Typography>
       </CardContent>
 
       <Divider variant="middle" />
 
-      <CardContent orientation='horizontal' sx={{ padding: 1 }}>
+      <CardContent orientation='horizontal' sx={{
+        padding: 1, background: '#edf2f5', borderRadius: 10, margin: 1,
+        boxShadow: 'inset -1px 1px 4px #a5cee8,inset 1px -1px 4px #a5cee8',
+      }}>
         <CardContent orientation='vertical' sx={{ paddingLeft: 1 }}>
-          <Typography level="body-md">Balance</Typography>
-          <Typography level="h3">Rs. {csvData.thisMonth}</Typography>
+          <Typography level="title-md">Balance</Typography>
+          <Typography level="h3">Rs. {finalBalance}</Typography>
           <LinearProgressWithLabel value={balanceLinearProgress} />
-          <Typography level="body-sm">Disposable Rs. {disposableMoney}</Typography>
+          <Typography level="title-sm">- Per day spend limit rs. <Typography level='title-lg' color={'success'}>{perDay}</Typography></Typography>
+          <Typography level="body-sm">- Cash rs. <Typography level='title-lg' color={'success'}>{csvData.thisMonth}</Typography></Typography>
+          <Typography level="body-sm">- Disposable cash rs. <Typography level='title-lg' color={'success'}>{disposableMoney}</Typography></Typography>
         </CardContent>
       </CardContent>
 
       <Divider variant="middle" />
 
-      <CardContent orientation='horizontal' sx={{ padding: 1 }}>
+      <CardContent orientation='horizontal' sx={{
+        padding: 1, background: '#edf2f5', borderRadius: 10, margin: 1,
+        boxShadow: 'inset -1px 1px 5px #8fb37a,inset 1px -1px 5px #8fb37a',
+      }}>
         <CardContent orientation='vertical' sx={{ paddingLeft: 1 }}>
-          <Typography level="body-md">
+          <Typography level="title-md">
             {nextMonthName} Savings</Typography>
           <Typography level="title-lg">Rs. {csvData.nextMonth}</Typography>
           <LinearProgressWithLabel value={nextMonethSavingLinearProgress} />
         </CardContent>
       </CardContent>
 
-      <CardContent orientation='horizontal' sx={{ padding: 1 }}>
+      <CardContent orientation='horizontal' sx={{
+        padding: 1, background: '#edf2f5', borderRadius: 10, margin: 1,
+        boxShadow: 'inset -1px 1px 5px #a5ce8d,inset 1px -1px 5px #a5ce8d',
+      }}>
         <CardContent orientation='vertical' sx={{ paddingLeft: 1 }}>
-          <Typography level="body-md">{nextToNextMonthName} Savings</Typography>
+          <Typography level="title-md">{nextToNextMonthName} Savings</Typography>
           <Typography level="title-lg">Rs. {csvData.nextNextMonth}</Typography>
           <LinearProgressWithLabel value={nextToNextMonthSavingLinearProgress} />
         </CardContent>
       </CardContent>
+
+
+
+      <Divider variant="middle" />
+
+      {todaysCashTransaction.length > 0 && (
+        <CardContent orientation="horizontal" sx={{
+          padding: 1, background: '#edf2f5', borderRadius: 10, margin: 1,
+          boxShadow: 'inset -1px 1px 5px #ebaeeb,inset 1px -1px 5px #ebaeeb',
+        }}>
+          <CardContent orientation="vertical" sx={{ paddingLeft: 1 }}>
+            <Typography level="title-md">Today's Cash Transaction</Typography>
+            <Divider variant="fullWidth" />
+
+            {todaysCashTransaction.map((transaction, index) => (
+              <CardContent orientation="horizontal" key={index}>
+                <Typography level="body-sm" sx={{ color: '#570957' }}>- {transaction.paidAt} of rs. <Typography level="title-md" sx={{ color: '#800080' }}>{transaction.amount}</Typography> </Typography>
+              </CardContent>
+            ))}
+          </CardContent>
+        </CardContent>
+      )}
+
+
 
     </Card>
 
@@ -69,7 +112,13 @@ export default function AccountsCard() {
 }
 
 function LinearProgressWithLabel(props) {
-  const isLessThan20 = props.value < 20;
+  const { value, invert } = props;
+  let isLessThan20 = 0
+  if (invert) {
+    isLessThan20 = value > 80;
+  } else {
+    isLessThan20 = value < 20;
+  }
   const barColor = isLessThan20 ? 'danger' : 'success'
   const roundedValue = isNaN(props.value) ? 0 : Math.round(props.value);
 
@@ -80,7 +129,7 @@ function LinearProgressWithLabel(props) {
           color={barColor}
           determinate
           size="lg"
-          variant="outlined"
+          variant="plain"
           value={roundedValue}
         />
       </Box>
@@ -93,10 +142,85 @@ function LinearProgressWithLabel(props) {
   );
 }
 
+function LinearProgressWithLabelAndColor(props) {
+  const { value, invert, color } = props;
+  let barColor = ''
+  if (invert) {
+    const isGreaterThan80 = value > 80;
+    barColor = isGreaterThan80 ? color : '#73add1'
+  } else {
+    const isLessThan20 = value < 20;
+    barColor = isLessThan20 ? '#73add1' : color
+  }
+  const roundedValue = isNaN(props.value) ? 0 : Math.round(props.value);
+
+  return (
+    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+      <Box sx={{ width: '100%', mr: 1 }}>
+        <LinearProgress
+          determinate
+          size="lg"
+          variant="plain"
+          value={roundedValue}
+          sx={{ color: barColor }}
+        />
+      </Box>
+      <Box sx={{ minWidth: 35 }}>
+        <Typography variant="body2" color="text.secondary">
+          {`${roundedValue}%`}
+        </Typography>
+      </Box>
+    </Box>
+  );
+}
+
+
 function getDisposableMoney(csvData) {
-  const disposable = csvData.thisMonth - (csvData.totalSaving * 0.2)
-  if (disposable < 0 || isNaN(disposable)){
+  const disposable = csvData.thisMonth - (csvData.totalSaving * (csvData.disposableThresholdPercentage / 100))
+  if (disposable < 0 || isNaN(disposable)) {
     return 0;
   }
   return disposable
 }
+
+function getFinalBalance(csvData) {
+  const currentDate = new Date();
+  const day = currentDate.getDate();
+
+  const unbilledValue = day < csvData.minCCBillingDate ? csvData.unbilledNextMonth : csvData.unbilledNextNextMonth;
+
+  const finalBalance = +csvData.thisMonth + (+csvData.unbilledThresold - +unbilledValue);
+
+  return finalBalance;
+}
+
+function parseTodaysCashTransaction(csvData) {
+  console.error('csvData.todaysTransaction---', csvData.todaysTransaction)
+  if (csvData.todaysTransaction) {
+    const decodedString = atob(csvData.todaysTransaction);
+    const jsonObject = JSON.parse(decodedString);
+    console.log('jsonObject', jsonObject)
+    return jsonObject.todaysCashTransaction
+  }
+
+  return []
+}
+
+function perDayCalculator(amount) {
+  // Get the current date
+  const currentDate = new Date();
+
+  // Calculate the last date of the current month
+  // To find the last date of the month, we set the day to 0 of the next month
+  const lastDateOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+
+  // Calculate the time difference in milliseconds between the last date of the month and the current date
+  const timeDifference = lastDateOfMonth.getTime() - currentDate.getTime();
+
+  // Calculate the number of days in between by dividing the time difference by the number of milliseconds in a day
+  const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
+
+  return parseInt(amount / (daysDifference + 1))
+}
+
+export { LinearProgressWithLabel, LinearProgressWithLabelAndColor };

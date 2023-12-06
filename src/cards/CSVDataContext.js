@@ -30,15 +30,15 @@ export function CSVDataProvider({ children }) {
                 const csvObject = {};
 
                 csvArray.forEach((row) => {
-                    if (row.length >= 2) {
-                        const key = row[0].trim().replace(/ /g, '_'); // Replace spaces with underscores
-                        const value = row[1].trim();
-                        csvObject[key] = value;
+                    if (row.length < 2) {
+                        return;
                     }
+                    const key = row[0].trim().replace(/ /g, '_'); // Replace spaces with underscores
+                    const value = row[1].trim();
+                    csvObject[key] = value;
                 });
 
                 setCsvData(csvObject);
-                console.log(csvObject)
             } catch (error) {
                 console.error('Error fetching CSV:', error);
             }

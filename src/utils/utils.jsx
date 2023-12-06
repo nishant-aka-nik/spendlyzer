@@ -1,23 +1,19 @@
-export function getNextMonthName() {
+export function getMonthName(index) {
+    // Get the current date
     const today = new Date();
-    const nextMonth = new Date(today);
-    nextMonth.setMonth(nextMonth.getMonth() + 1);
+
+    // Calculate the next month and year
+    const month = new Date(today.getFullYear(), today.getMonth() + index, 1);
+
+    // Check for year rollover
+    if (month.getMonth() === 0) {
+        month.setFullYear(today.getFullYear() + 1);
+    }
 
     // Get the name of the next month using toLocaleString
-    const nextMonthName = nextMonth.toLocaleString('default', { month: 'long' });
+    const monthName = month.toLocaleString('default', { month: 'long', year: 'numeric' });
 
-    return nextMonthName;
-}
-
-export function getNextToNextMonthName() {
-    const today = new Date();
-    const nextToNextMonth = new Date(today);
-    nextToNextMonth.setMonth(nextToNextMonth.getMonth() + 2);
-
-    // Get the name of the next to next month using toLocaleString
-    const nextToNextMonthName = nextToNextMonth.toLocaleString('default', { month: 'long' });
-
-    return nextToNextMonthName;
+    return monthName;
 }
 
 export function bgRandomizer() {
