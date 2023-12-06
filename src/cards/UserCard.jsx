@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Card from "@mui/material/Card";
 import CardContent from "@mui/joy/CardContent";
 import Typography from "@mui/joy/Typography";
-import Divider from "@mui/material/Divider";
 import CardMedia from '@mui/material/CardMedia';
 import { bgRandomizer, getGreetingByTimezone } from './../utils/utils'
 import { useCSVData } from './CSVDataContext';
