@@ -90,7 +90,7 @@ function Returns(returnsData) {
             <Divider variant="fullWidth"  sx={{marginTop: 1, marginBottom: 1}}/>
 
             <Typography level="title-md">Bonds</Typography>
-            <Typography level="h4" color={profitColor}>Rs. {bondPerMonthIncome} <Typography level='body-sm'>/ Per Day</Typography> </Typography>
+            <Typography level="h4" color={profitColor}>Rs. {bondPerMonthIncome} <Typography level='body-sm'>/ Per Month Cash Flow</Typography> </Typography>
             <Typography level='body-sm'>- Invested in {totalBonds} bonds</Typography>
         </CardContent>
     )
