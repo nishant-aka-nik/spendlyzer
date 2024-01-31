@@ -6,18 +6,13 @@ import Divider from '@mui/material/Divider';
 import { useCSVData } from './CSVDataContext';
 import Box from '@mui/material/Box';
 import LinearProgress from '@mui/joy/LinearProgress';
-import { getMonthName } from './../utils/utils'
 
 
 export default function AccountsCard() {
-  const nextMonthName = getMonthName(1);
-  const nextToNextMonthName = getMonthName(2);
 
   const csvData = useCSVData();
 
   const [balanceLinearProgress, setbalanceLinearProgress] = useState(0)
-  const [nextMonethSavingLinearProgress, setnextMonethSavingLinearProgress] = useState(0)
-  const [nextToNextMonthSavingLinearProgress, setnextToNextMonthSavingLinearProgress] = useState(0)
   const [disposableMoney, setdisposableMoney] = useState(0)
   const [perDay, setperDay] = useState(0)
   const [finalBalance, setfinalBalance] = useState(0)
@@ -28,8 +23,6 @@ export default function AccountsCard() {
   useEffect(() => {
     const progress = (csvData.thisMonth / csvData.totalSaving) * 100
     setbalanceLinearProgress(progress);
-    setnextMonethSavingLinearProgress((csvData.nextMonth / csvData.totalSaving) * 100);
-    setnextToNextMonthSavingLinearProgress((csvData.nextNextMonth / csvData.totalSaving) * 100);
     setdisposableMoney(getDisposableMoney(csvData))
     setperDay(perDayCalculator(getFinalBalance(csvData)))
     setfinalBalance(getFinalBalance(csvData))
@@ -60,32 +53,6 @@ export default function AccountsCard() {
           <Typography level="body-sm">- Disposable cash rs. <Typography level='title-lg' color={'success'}>{disposableMoney}</Typography></Typography>
         </CardContent>
       </CardContent>
-
-      <Divider variant="middle" />
-
-      <CardContent orientation='horizontal' sx={{
-        padding: 1, background: '#edf2f5', borderRadius: 10, margin: 1,
-        boxShadow,
-      }}>
-        <CardContent orientation='vertical' sx={{ paddingLeft: 1 }}>
-          <Typography level="title-md">
-            {nextMonthName} Savings</Typography>
-          <Typography level="title-lg">Rs. {csvData.nextMonth}</Typography>
-          <LinearProgressWithLabel value={nextMonethSavingLinearProgress} />
-        </CardContent>
-      </CardContent>
-
-      <CardContent orientation='horizontal' sx={{
-        padding: 1, background: '#edf2f5', borderRadius: 10, margin: 1,
-        boxShadow,
-      }}>
-        <CardContent orientation='vertical' sx={{ paddingLeft: 1 }}>
-          <Typography level="title-md">{nextToNextMonthName} Savings</Typography>
-          <Typography level="title-lg">Rs. {csvData.nextNextMonth}</Typography>
-          <LinearProgressWithLabel value={nextToNextMonthSavingLinearProgress} />
-        </CardContent>
-      </CardContent>
-
 
 
       <Divider variant="middle" />

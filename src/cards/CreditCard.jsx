@@ -17,18 +17,35 @@ export default function CreditCard() {
     const [nextToNextMonthUnbilledProgress, setnextToNextMonthUnbilledProgress] = useState(0)
     const [todaysCCTransaction, settodaysCCTransaction] = useState([])
 
+    const [boxShadow, setboxShadow] = useState('')
+    const [nextMonethSavingLinearProgress, setnextMonethSavingLinearProgress] = useState(0)
+    const [nextToNextMonthSavingLinearProgress, setnextToNextMonthSavingLinearProgress] = useState(0)
+
 
     const csvData = useCSVData();
 
     useEffect(() => {
-        setnextMonethUnbilledProgress(parseInt((csvData.unbilledNextMonth / 10000) * 100));
+        let nextMonthUnbilledProgress = parseInt((csvData.unbilledNextMonth / 10000) * 100)
+        if (nextMonthUnbilledProgress > 100){
+            nextMonthUnbilledProgress = 100
+        }
+        setnextMonethUnbilledProgress(nextMonthUnbilledProgress);
+        let nextnextMonthUnilledProgress = parseInt((csvData.unbilledNextNextMonth / 10000) * 100)
+        if (nextnextMonthUnilledProgress > 100){
+            nextnextMonthUnilledProgress = 100
+        }
+        setnextToNextMonthUnbilledProgress(nextnextMonthUnilledProgress);
+
         settodaysCCTransaction(parseTodaysCCTransaction(csvData))
+
+        const progress = (csvData.thisMonth / csvData.totalSaving) * 100
+        setboxShadow(getBoxShadow({ invert: false, progress }))
+
+        setnextToNextMonthSavingLinearProgress((csvData.nextNextMonth / csvData.totalSaving) * 100);
+        setnextMonethSavingLinearProgress((csvData.nextMonth / csvData.totalSaving) * 100);
 
     }, [csvData]);
 
-    useEffect(() => {
-        setnextToNextMonthUnbilledProgress(parseInt((csvData.unbilledNextNextMonth / 10000) * 100));
-    }, [csvData.unbilledNextNextMonth]);
 
     return (
         <Card sx={{ padding: 1, borderRadius: 5, background: '#f0f3f5' }}>
@@ -38,6 +55,18 @@ export default function CreditCard() {
 
             <Divider variant="middle" />
 
+            <CardContent orientation='horizontal' sx={{
+                padding: 1, background: '#edf2f5', borderRadius: 10, margin: 1,
+                boxShadow,
+            }}>
+                <CardContent orientation='vertical' sx={{ paddingLeft: 1 }}>
+                    <Typography level="title-md">
+                        {nextMonthName} Savings</Typography>
+                    <Typography level="title-lg">Rs. {csvData.nextMonth}</Typography>
+                    <LinearProgressWithLabel value={nextMonethSavingLinearProgress} />
+                </CardContent>
+            </CardContent>
+
             <CCCards {...{
                 progress: nextMonthUnbilledProgress,
                 monthName: nextMonthName,
@@ -45,6 +74,18 @@ export default function CreditCard() {
                 unbilledThresold: csvData.unbilledThresold,
                 disposableThreshold: csvData.disposableCCThreshold
             }} />
+
+            <CardContent orientation='horizontal' sx={{
+                padding: 1, background: '#edf2f5', borderRadius: 10, margin: 1,
+                boxShadow,
+            }}>
+                <CardContent orientation='vertical' sx={{ paddingLeft: 1 }}>
+                    <Typography level="title-md">{nextToNextMonthName} Savings</Typography>
+                    <Typography level="title-lg">Rs. {csvData.nextNextMonth}</Typography>
+                    <LinearProgressWithLabel value={nextToNextMonthSavingLinearProgress} />
+                </CardContent>
+            </CardContent>
+
             <CCCards {...{
                 progress: nextToNextMonthUnbilledProgress,
                 monthName: nextToNextMonthName,
@@ -138,7 +179,7 @@ function CCCards(csvData) {
         }
         setdisposableLeft(parseInt(disposableLeft))
 
-        setboxShadow(getBoxShadow({ invert: true, progress: csvData.progress}))
+        setboxShadow(getBoxShadow({ invert: true, progress: csvData.progress }))
 
     }, [csvData]);
 
