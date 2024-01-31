@@ -12,10 +12,14 @@ import CashFlowGeneratorCard from './cards/CashFlowGeneratorCard'
 import './App.css';
 
 const App = () => {
-    const [cookies] = useCookies(['isLoggedIn']);
+    const [cookies, setIsLoggedInCookie] = useCookies(['isLoggedIn']);
     const isLoggedIn = cookies.isLoggedIn === true;
-    console.log('isloggedin cookie ---', cookies.isLoggedIn)
-    console.log('isloggedin ---', isLoggedIn)
+    if (isLoggedIn) {
+        console.log('isloggedin cookie ---', cookies)
+        console.log('isloggedin ---', isLoggedIn)
+        setIsLoggedInCookie('isLoggedIn', true, { path: '/', maxAge: 86400 });
+    }
+
 
 
     return (
